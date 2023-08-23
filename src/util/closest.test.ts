@@ -1,23 +1,12 @@
 import { describe, it, expect } from 'vitest'
+import { AreaCode } from '../types/area-codes'
 import {
-  AreaCode,
-  clean,
   findMatches,
   matchNamesakeOnStartingWithCode,
   matchNamesakeOnContainingCodeInOrder,
   matchNamesakeOnContainingCodeNotInOrder,
   matchNamesakeOnNamesakeLevenshtein,
 } from './closest'
-
-describe('clean()', () => {
-  it('removes all ocurrences of *', () => {
-    expect(clean('*A*ugsburg')).toEqual('augsburg')
-  })
-
-  it('lowercases', () => {
-    expect(clean('Augsburg')).toEqual('augsburg')
-  })
-})
 
 describe('findMatches()', () => {
   const xs: AreaCode[] = [

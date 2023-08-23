@@ -10,23 +10,14 @@ import {
   without,
 } from 'ramda'
 import levenshtein from 'js-levenshtein'
+import { AreaCode } from '../types/area-codes'
+import { clean } from './clean'
 
-export type AreaCode = {
-  code: string
-  namesake: string
-  district: string
-  state?: string
-  score?: number
-  population?: number
-}
 export type Matcher = { f: MatcherFn; n: number }
 export type MatcherFn = (
   x: AreaCode,
   y: AreaCode,
 ) => boolean
-
-export const clean = (s: string) =>
-  toLower(s.replace(/\*/g, ''))
 
 export const findMatches = (
   x: AreaCode,

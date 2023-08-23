@@ -10,3 +10,4 @@
 - https://de.m.wikipedia.org/wiki/Kfz-Kennzeichen_(Deutschland)
 - https://www.customeuropeanplates.com/german-license-plate-codes
 - https://en.m.wikipedia.org/wiki/FE-Schrift
+- https://en.m.wikipedia.org/wiki/German_orthography

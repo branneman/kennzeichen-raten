@@ -20,6 +20,7 @@
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-import-assertions": "^7.22.5",
     "@types/js-levenshtein": "^1.1.1",
     "@types/ramda": "^0.29.3",
     "@types/react": "^18.2.15",
