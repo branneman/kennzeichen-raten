@@ -1,6 +1,7 @@
 import {
   all,
   compose,
+  curry,
   equals,
   filter,
   includes,
@@ -19,25 +20,24 @@ export type MatcherFn = (
   y: AreaCode,
 ) => boolean
 
-export const findMatches = (
-  x: AreaCode,
-  matchers: Matcher[],
-  xs: AreaCode[],
-) => {
-  const f = compose(
-    filter(
-      (y: AreaCode) => y.score !== undefined && y.score > 0,
-    ),
-    map((y: AreaCode) => {
-      const r = (acc: number, { f, n }: Matcher) =>
-        f(x, y) ? acc + n : acc
-      return { ...y, score: reduce(r, 0, matchers) }
-    }),
-    without([x]),
-  )
+export const findMatches = curry(
+  (matchers: Matcher[], xs: AreaCode[], x: AreaCode) => {
+    const f = compose(
+      filter(
+        (y: AreaCode) =>
+          y.score !== undefined && y.score > 0,
+      ),
+      map((y: AreaCode) => {
+        const r = (acc: number, { f, n }: Matcher) =>
+          f(x, y) ? acc + n : acc
+        return { ...y, score: reduce(r, 0, matchers) }
+      }),
+      without([x]),
+    )
 
-  return { ...x, matches: f(xs) }
-}
+    return { ...x, matches: f(xs) }
+  },
+)
 
 export const matchNamesakeOnStartingWithCode = (
   a: AreaCode,
@@ -58,10 +58,11 @@ export const matchNamesakeOnContainingCodeInOrder = (
 
   const reString = reduce(
     (acc, curr) => acc + curr + '.*',
-    '',
+    '.*',
     letters,
   )
-  const re = new RegExp('.*' + reString)
+  const re = new RegExp(reString)
+
   return re.test(namesake)
 }
 

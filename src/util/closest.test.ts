@@ -46,7 +46,7 @@ describe('findMatches()', () => {
         },
       ]
 
-      const r = findMatches(xs[0], matchers, xs)
+      const r = findMatches(matchers, xs, xs[0])
 
       expect(r).toEqual({
         code: 'WT',
@@ -77,7 +77,7 @@ describe('findMatches()', () => {
         },
       ]
 
-      const r = findMatches(xs[3], matchers, xs)
+      const r = findMatches(matchers, xs, xs[3])
 
       expect(r).toEqual({
         code: 'WÜ',
