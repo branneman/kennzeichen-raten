@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+import LicensePlate from '../../../components/LicensePlate'
 import { Game } from '../../../types/game'
 import {
   hasStarted,
   isDone,
   difficultyStr2Int,
   generateNewGameState,
+  getCurrentQuestion,
 } from '../../../util/game'
 
 export default function PlayGame() {
@@ -36,12 +38,14 @@ export default function PlayGame() {
   }
 
   // Started + In-progress = Show question
-  // const question = getCurrentQuestion(gameState)
+  const { question, choices } = getCurrentQuestion(
+    gameState as Game,
+  )
   return (
     <>
-      <p>license plate placeholder</p>
+      <LicensePlate prefix={question.code} />
       <pre>
-        <code>{JSON.stringify(gameState, null, 2)}</code>
+        <code>{JSON.stringify(choices, null, 2)}</code>
       </pre>
     </>
   )

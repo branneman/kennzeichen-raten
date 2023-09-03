@@ -5,8 +5,10 @@ import {
   isDone,
   difficultyStr2Int,
   generateNewGameState,
+  getCurrentQuestion,
   answerQuestion,
 } from './game'
+import { Game } from '../types/game'
 
 const randomStr = (len: number) =>
   randomBytes(Math.floor(len / 2)).toString('hex')
@@ -18,7 +20,7 @@ const mockAreaCode = () => ({
 
 describe('hasStarted()', () => {
   it('returns true with valid date', () => {
-    const game = {
+    const game: Game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [],
@@ -39,12 +41,12 @@ describe('isDone()', () => {
     const ac1 = mockAreaCode()
     const ac2 = mockAreaCode()
 
-    const game = {
+    const game: Game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
-        { correct: ac1, choices: [] },
-        { correct: ac2, choices: [] },
+        { question: ac1, choices: [] },
+        { question: ac2, choices: [] },
       ],
       answers: [
         { question: ac1, answer: ac2, isCorrect: false },
@@ -61,13 +63,13 @@ describe('isDone()', () => {
     const ac3 = mockAreaCode()
 
     // 3 questions, only 2 answers
-    const game = {
+    const game: Game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
-        { correct: ac1, choices: [] },
-        { correct: ac2, choices: [] },
-        { correct: ac3, choices: [] },
+        { question: ac1, choices: [] },
+        { question: ac2, choices: [] },
+        { question: ac3, choices: [] },
       ],
       answers: [
         { question: ac1, answer: ac2, isCorrect: false },
@@ -150,9 +152,35 @@ describe('generateNewGameState()', () => {
   })
 })
 
-// describe('getCurrentQuestion()', () => {
-//   it('finds the first unanswered question', () => {})
-// })
+describe('getCurrentQuestion()', () => {
+  it('finds the first unanswered question', () => {
+    // generate mock area codes
+    const [ac1, ac2, ac3, ac4, ac5, ac6, ac7] = [
+      1, 2, 3, 4, 5, 6, 7,
+    ].map(mockAreaCode)
+
+    // 3 questions, 1 answer already available
+    const game: Game = {
+      startedAt: new Date(),
+      difficulty: 1,
+      questions: [
+        { question: ac1, choices: [ac4, ac1, ac5] },
+        { question: ac2, choices: [ac5, ac2, ac6] },
+        { question: ac3, choices: [ac6, ac3, ac7] },
+      ],
+      answers: [
+        { question: ac1, answer: ac1, isCorrect: true },
+      ],
+    }
+
+    const r = getCurrentQuestion(game)
+
+    expect(r).toEqual({
+      question: ac2,
+      choices: [ac5, ac2, ac6],
+    })
+  })
+})
 
 describe('answerQuestion()', () => {
   it('updates the right question', () => {
@@ -162,7 +190,7 @@ describe('answerQuestion()', () => {
     ].map(mockAreaCode)
 
     // 3 questions, 1 answer already available
-    const game = {
+    const game: Game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [

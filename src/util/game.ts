@@ -9,6 +9,7 @@ import {
   matchNamesakeOnContainingCodeNotInOrder,
   matchNamesakeOnNamesakeLevenshtein,
 } from './closest'
+import { shuffle } from './array'
 
 import DATA from '../data/area-codes.json' assert { type: 'json' }
 
@@ -41,7 +42,7 @@ export const generateNewGameState = (
   difficulty: Difficulty,
 ): Game => {
   // generate 10 questions
-  const questions = slice(0, 10, DATA)
+  const questions = slice(0, 10, shuffle(DATA))
 
   const rawQuestion2gameQuestion = (question: AreaCode) => {
     const g = pipe(
@@ -53,6 +54,7 @@ export const generateNewGameState = (
       ),
       slice(0, 2),
       append(question),
+      shuffle,
     )
 
     return { question, choices: g(question) as AreaCode[] }
@@ -70,7 +72,11 @@ export const generateNewGameState = (
   }
 }
 
-// export const getCurrentQuestion = (): AreaCode[] => null
+export const getCurrentQuestion = (
+  game: Game,
+): { question: AreaCode; choices: AreaCode[] } => {
+  return game.questions[game.answers.length]
+}
 
 export const answerQuestion = (
   game: Game,
