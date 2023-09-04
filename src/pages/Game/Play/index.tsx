@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import LicensePlate from '../../../components/LicensePlate'
+import { AreaCode } from '../../../types/area-codes'
 import { Game } from '../../../types/game'
 import {
   hasStarted,
@@ -9,6 +10,8 @@ import {
   difficultyStr2Int,
   generateNewGameState,
   getCurrentQuestion,
+  answerQuestion,
+  getResults,
 } from '../../../util/game'
 
 export default function PlayGame() {
@@ -17,7 +20,7 @@ export default function PlayGame() {
   )
   const { difficulty: difficultyStr } = useParams()
 
-  // Not started = Start
+  // Not started => Start
   if (!hasStarted(gameState)) {
     setGameState(
       generateNewGameState(
@@ -27,26 +30,46 @@ export default function PlayGame() {
     return null // rerender
   }
 
-  // Started + Done = Show results
+  // Started + Done => Show results
   if (isDone(gameState)) {
+    const results = getResults(gameState as Game)
     return (
       <>
         <p>Done!</p>
-        <p>Your score: ?%</p>
+        <p>Your score: {results.percentage}%</p>
+        <p>
+          Correct: {results.correct}, Incorrect:{' '}
+          {results.incorrect}.
+        </p>
       </>
     )
   }
 
-  // Started + In-progress = Show question
+  // Started + In-progress => Show question
   const { question, choices } = getCurrentQuestion(
     gameState as Game,
   )
+  const answer = (q: AreaCode, a: AreaCode) => {
+    setGameState(answerQuestion(gameState as Game, q, a))
+  }
+
   return (
     <>
       <LicensePlate prefix={question.code} />
-      <pre>
-        <code>{JSON.stringify(choices, null, 2)}</code>
-      </pre>
+      <ol>
+        {choices.map((choice, idx) => (
+          <li key={`${choice.code} ${idx}`}>
+            <button
+              onClick={() => answer(question, choice)}
+            >
+              {choice.namesake}
+              {choice.namesake !== choice.district &&
+                ` (${choice.district})`}
+              , {choice.state}
+            </button>
+          </li>
+        ))}
+      </ol>
     </>
   )
 }

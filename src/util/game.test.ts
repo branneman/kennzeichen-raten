@@ -7,6 +7,7 @@ import {
   generateNewGameState,
   getCurrentQuestion,
   answerQuestion,
+  getResults,
 } from './game'
 import { Game } from '../types/game'
 
@@ -214,6 +215,62 @@ describe('answerQuestion()', () => {
   })
 })
 
-// describe('getResults()', () => {
-//   it('', () => {})
-// })
+describe('getResults()', () => {
+  it('has percentage/correct/incorrect properties', () => {
+    // generate mock area codes
+    const [ac1, ac2, ac3, ac4, ac5, ac6, ac7] = [
+      1, 2, 3, 4, 5, 6, 7,
+    ].map(mockAreaCode)
+
+    const game: Game = {
+      startedAt: new Date(),
+      difficulty: 1,
+      questions: [
+        { question: ac1, choices: [ac4, ac1, ac5] },
+        { question: ac2, choices: [ac5, ac2, ac6] },
+        { question: ac3, choices: [ac6, ac3, ac7] },
+      ],
+      answers: [
+        { question: ac1, answer: ac1, isCorrect: true },
+        { question: ac2, answer: ac2, isCorrect: true },
+        { question: ac3, answer: ac3, isCorrect: true },
+      ],
+    }
+
+    const r = getResults(game)
+
+    expect(r.percentage).toBeDefined()
+    expect(r.correct).toBeDefined()
+    expect(r.incorrect).toBeDefined()
+  })
+
+  it('returns 50% when half isCorrect=true', () => {
+    // generate mock area codes
+    const [ac1, ac2, ac3, ac4, ac5, ac6, ac7] = [
+      1, 2, 3, 4, 5, 6, 7,
+    ].map(mockAreaCode)
+
+    const game: Game = {
+      startedAt: new Date(),
+      difficulty: 1,
+      questions: [
+        { question: ac1, choices: [ac4, ac1, ac5] },
+        { question: ac2, choices: [ac5, ac2, ac6] },
+        { question: ac3, choices: [ac6, ac3, ac7] },
+        { question: ac4, choices: [ac6, ac4, ac7] },
+      ],
+      answers: [
+        { question: ac1, answer: ac1, isCorrect: true },
+        { question: ac2, answer: ac5, isCorrect: false },
+        { question: ac3, answer: ac3, isCorrect: true },
+        { question: ac4, answer: ac7, isCorrect: false },
+      ],
+    }
+
+    const r = getResults(game)
+
+    expect(r.percentage).toEqual(50)
+    expect(r.correct).toEqual(2)
+    expect(r.incorrect).toEqual(2)
+  })
+})

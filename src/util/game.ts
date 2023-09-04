@@ -18,6 +18,7 @@ const MATCHERS: Matcher[] = [
   { f: matchNamesakeOnContainingCodeInOrder, n: 10 },
   { f: matchNamesakeOnContainingCodeNotInOrder, n: 5 },
   { f: matchNamesakeOnNamesakeLevenshtein(4), n: 10 },
+  { f: matchNamesakeOnNamesakeLevenshtein(10), n: 2 },
 ]
 
 export const hasStarted = (game: Game | null) =>
@@ -91,4 +92,20 @@ export const answerQuestion = (
   return { ...game, answers }
 }
 
-// export const getResults = () => null
+export const getResults = (
+  game: Game,
+): {
+  percentage: number
+  correct: number
+  incorrect: number
+} => {
+  const count = (
+    f: (a: { isCorrect: boolean }) => boolean,
+  ) => game.answers.filter(f).length
+
+  const correct = count((a) => a.isCorrect)
+  const incorrect = count((a) => !a.isCorrect)
+  const percentage = (correct / game.answers.length) * 100
+
+  return { percentage, correct, incorrect }
+}
