@@ -58,6 +58,9 @@ export default function PlayGame() {
     setGameState(answerQuestion(gameState as Game, q, a))
   }
 
+  // Remove namesake highlighting (because it would be a hint otherwise)
+  const formatNamesake = (s: string) => s.replace(/\*/g, '')
+
   return (
     <>
       <h2>This license plate:</h2>
@@ -74,7 +77,7 @@ export default function PlayGame() {
               className="game-play__answer"
               onClick={() => answer(question, choice)}
             >
-              {choice.namesake}
+              {formatNamesake(choice.namesake)}
               {choice.namesake !== choice.district &&
                 ` (${choice.district})`}
               , {choice.state}

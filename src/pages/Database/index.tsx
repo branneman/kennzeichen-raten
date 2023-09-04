@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { filter } from 'ramda'
+
 import { AreaCode } from '../../types/area-codes'
 import { isMatch } from '../../util/search'
+import { splitByBoldStar } from '../../util/string'
+import Namesake from '../../components/Namesake'
 
 import areaCodes from '../../data/area-codes.json' assert { type: 'json' }
 
@@ -28,8 +31,11 @@ export default function Database() {
       <ol>
         {results.map((ac) => (
           <li key={`ac-${ac.code}`}>
-            {ac.code} - {ac.namesake} - {ac.district} -{' '}
-            {ac.state}
+            {ac.code} -{' '}
+            <Namesake
+              namesake={splitByBoldStar(ac.namesake)}
+            />{' '}
+            - {ac.district} - {ac.state}
           </li>
         ))}
       </ol>

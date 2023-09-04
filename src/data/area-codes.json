@@ -8,7 +8,7 @@
   },
   {
     "code": "AA",
-    "namesake": "*Aa*len",
+    "namesake": "*A**a*len",
     "district": "Ostalbkreis",
     "state": "Baden-Württemberg",
     "population": 319631
@@ -695,7 +695,7 @@
   },
   {
     "code": "CR",
-    "namesake": "*Cr*ailsheim",
+    "namesake": "*C**r*ailsheim",
     "district": "Schwäbisch Hall",
     "state": "Baden-Württemberg",
     "population": 202834
@@ -860,7 +860,7 @@
   },
   {
     "code": "DON",
-    "namesake": "Donauwörth",
+    "namesake": "*D**o**n*auwörth",
     "district": "Donau-Ries",
     "state": "Bayern"
   },
@@ -2777,7 +2777,7 @@
   },
   {
     "code": "MO",
-    "namesake": "*Mo*ers",
+    "namesake": "*M**o*ers",
     "district": "Moers",
     "state": "Nordrhein-Westfalen",
     "population": 105287
@@ -4634,7 +4634,7 @@
   },
   {
     "code": "WES",
-    "namesake": "*We*sel",
+    "namesake": "*W**e*sel",
     "district": "Kreis Wesel",
     "state": "Nordrhein-Westfalen",
     "population": 465838
