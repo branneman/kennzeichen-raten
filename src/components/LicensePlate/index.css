@@ -1,0 +1,48 @@
+.license-plate {
+  display: inline-flex;
+  border: 3px solid black;
+  border-radius: 0.5em;
+  overflow: hidden;
+  background: #eaeef3;
+  font-size: 14px;
+}
+@media screen and (min-width: 400px) {
+  .license-plate {
+    font-size: 16px;
+  }
+}
+
+.license-plate__flag-country {
+  padding: 2.25em 0.5em .25em 0.5em;
+  background-color: #039;
+  background-image: url('./flag-of-europe.svg');
+  background-position: -0.55em 0.20em;
+  background-size: 2.8125em;
+  background-repeat: no-repeat;
+  color: white;
+  font-weight: 100;
+}
+
+.license-plate__district,
+.license-plate__code {
+  padding: 0 .1em;
+  font-family: 'fe-schrift', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 3.75em;
+  line-height: 1em;
+  color: #282624;
+}
+.license-plate__district {
+  padding-right: 0.05em;
+}
+.license-plate__code {
+  padding-left: 0.05em;
+}
+
+.license-plate__seals {
+  width: 20px;
+  background-image: url('./seal-of-safety.svg');
+  background-position: 0 0.4em;
+  background-size: 20px;
+  background-repeat: no-repeat;
+}

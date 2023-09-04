@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'fe-schrift';
+  src:
+    url('./fe-schrift.woff2') format('woff2'),
+    url('./fe-schrift.woff') format('woff'),
+    url('./fe-schrift.otf') format('opentype'),
+    url('./fe-schrift.ttf') format('truetype');
+}
+
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

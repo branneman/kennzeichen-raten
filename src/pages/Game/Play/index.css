@@ -1,0 +1,26 @@
+.game-play__answerlist {
+  margin: 0;
+  padding: 0;
+}
+.game-play__answerlistitem {
+  list-style: none;
+}
+
+button.game-play__answer {
+  margin: 0 0 1em 0;
+  border: 1px solid grey;
+  border-radius: 0.5em;
+  box-shadow: 2px 2px 2px grey;
+  padding: 0.75em;
+  background: transparent;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+button.game-play__answer:hover {
+  box-shadow: 0 0 2px grey;
+}

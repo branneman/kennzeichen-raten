@@ -13,6 +13,7 @@ import {
   answerQuestion,
   getResults,
 } from '../../../util/game'
+import './index.css'
 
 export default function PlayGame() {
   const [gameState, setGameState] = useState<Game | null>(
@@ -35,11 +36,15 @@ export default function PlayGame() {
     const results = getResults(gameState as Game)
     return (
       <>
-        <p>Done!</p>
-        <p>Your score: {results.percentage}%</p>
+        <h2>Done!</h2>
         <p>
-          Correct: {results.correct}, Incorrect:{' '}
-          {results.incorrect}.
+          Your score:{' '}
+          <strong>{results.percentage}% correct</strong>
+        </p>
+        <p>
+          Correct: {results.correct}
+          <br />
+          Incorrect: {results.incorrect}
         </p>
       </>
     )
@@ -55,11 +60,18 @@ export default function PlayGame() {
 
   return (
     <>
+      <h2>This license plate:</h2>
       <LicensePlate prefix={question.code} />
-      <ol>
+
+      <h2>Where is it from?</h2>
+      <ol className="game-play__answerlist">
         {choices.map((choice, idx) => (
-          <li key={`${choice.code} ${idx}`}>
+          <li
+            key={`${choice.code} ${idx}`}
+            className="game-play__answerlistitem"
+          >
             <button
+              className="game-play__answer"
               onClick={() => answer(question, choice)}
             >
               {choice.namesake}
