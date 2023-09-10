@@ -6,6 +6,7 @@ import {
   difficultyStr2Int,
   generateNewGameState,
   getCurrentQuestion,
+  getLastAnswer,
   answerQuestion,
   getResults,
 } from './game'
@@ -179,6 +180,38 @@ describe('getCurrentQuestion()', () => {
     expect(r).toEqual({
       question: ac2,
       choices: [ac5, ac2, ac6],
+    })
+  })
+})
+
+describe('getLastAnswer()', () => {
+  it('returns the right question,answer,choices,isCorrect', () => {
+    // generate mock area codes
+    const [ac1, ac2, ac3, ac4, ac5, ac6, ac7] = [
+      1, 2, 3, 4, 5, 6, 7,
+    ].map(mockAreaCode)
+
+    // 3 questions, 1 answer already available
+    const game: Game = {
+      startedAt: new Date(),
+      difficulty: 1,
+      questions: [
+        { question: ac1, choices: [ac4, ac1, ac5] },
+        { question: ac2, choices: [ac5, ac2, ac6] },
+        { question: ac3, choices: [ac6, ac3, ac7] },
+      ],
+      answers: [
+        { question: ac1, answer: ac1, isCorrect: true },
+      ],
+    }
+
+    const r = getLastAnswer(game)
+
+    expect(r).toEqual({
+      question: ac1,
+      choices: [ac4, ac1, ac5],
+      answer: ac1,
+      isCorrect: true,
     })
   })
 })

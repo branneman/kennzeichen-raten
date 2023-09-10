@@ -10,15 +10,19 @@ import {
   difficultyStr2Int,
   generateNewGameState,
   getCurrentQuestion,
+  getLastAnswer,
   answerQuestion,
   getResults,
 } from '../../../util/game'
+import { formatNamesake } from '../../../util/clean'
 import './index.css'
 
 export default function PlayGame() {
   const [gameState, setGameState] = useState<Game | null>(
     null,
   )
+  const [showingQuestion, setShowingQuestion] =
+    useState(true)
   const { difficulty: difficultyStr } = useParams()
 
   // Not started => Start
@@ -32,7 +36,7 @@ export default function PlayGame() {
   }
 
   // Started + Done => Show results
-  if (isDone(gameState)) {
+  if (isDone(gameState) && showingQuestion) {
     const results = getResults(gameState as Game)
     return (
       <>
@@ -50,16 +54,33 @@ export default function PlayGame() {
     )
   }
 
-  // Started + In-progress => Show question
-  const { question, choices } = getCurrentQuestion(
-    gameState as Game,
-  )
-  const answer = (q: AreaCode, a: AreaCode) => {
+  const addAnswerToGameState = (
+    q: AreaCode,
+    a: AreaCode,
+  ) => {
+    setShowingQuestion(false)
     setGameState(answerQuestion(gameState as Game, q, a))
+
+    // Show next question after some time (milliseconds)
+    setTimeout(() => setShowingQuestion(true), 1500)
   }
 
-  // Remove namesake highlighting (because it would be a hint otherwise)
-  const formatNamesake = (s: string) => s.replace(/\*/g, '')
+  let question: AreaCode
+  let choices: AreaCode[]
+  let answer: AreaCode
+  let isCorrect: boolean
+
+  if (showingQuestion) {
+    const q = getCurrentQuestion(gameState as Game)
+    question = q.question
+    choices = q.choices
+  } else {
+    const q = getLastAnswer(gameState as Game)
+    question = q.question
+    choices = q.choices
+    answer = q.answer
+    isCorrect = q.isCorrect
+  }
 
   return (
     <>
@@ -74,14 +95,33 @@ export default function PlayGame() {
             className="game-play__answerlistitem"
           >
             <button
+              {...{ disabled: !showingQuestion }}
               className="game-play__answer"
-              onClick={() => answer(question, choice)}
+              onClick={() =>
+                addAnswerToGameState(question, choice)
+              }
             >
               {formatNamesake(choice.namesake)}
               {choice.namesake !== choice.district &&
                 ` (${choice.district})`}
               , {choice.state}
             </button>
+
+            {!showingQuestion &&
+              choice === answer &&
+              isCorrect === true && (
+                <div className="game-play__answer--correct">
+                  ✅ Correct
+                </div>
+              )}
+
+            {!showingQuestion &&
+              choice === answer &&
+              isCorrect === false && (
+                <div className="game-play__answer--incorrect">
+                  ❌ Incorrect
+                </div>
+              )}
           </li>
         ))}
       </ol>

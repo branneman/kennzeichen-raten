@@ -79,6 +79,29 @@ export const getCurrentQuestion = (
   return game.questions[game.answers.length]
 }
 
+export const getLastAnswer = (
+  game: Game,
+): {
+  question: AreaCode
+  choices: AreaCode[]
+  answer: AreaCode
+  isCorrect: boolean
+} => {
+  const { question, answer, isCorrect } =
+    game.answers[game.answers.length - 1]
+
+  const { choices } = game.questions.find(
+    (ac) => ac.question.code === question.code,
+  ) as { question: AreaCode; choices: AreaCode[] }
+
+  return {
+    question,
+    choices,
+    answer,
+    isCorrect,
+  }
+}
+
 export const answerQuestion = (
   game: Game,
   question: AreaCode,

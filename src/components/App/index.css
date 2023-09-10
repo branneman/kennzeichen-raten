@@ -9,10 +9,12 @@
 
 html, body {
   font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  background-color: #282828;
 }
 
 #root {
-  max-width: 720px;
+  max-width: 380px;
   margin: 0 auto;
   padding: 2rem;
 }
