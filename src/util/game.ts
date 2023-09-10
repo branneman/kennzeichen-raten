@@ -1,6 +1,7 @@
 import { append, map, pipe, prop, slice, sort } from 'ramda'
 import { AreaCode } from '../types/area-codes'
 import { Game, Difficulty } from '../types/game'
+import { randomLicensePlate } from './license-plate'
 import {
   Matcher,
   findMatches,
@@ -46,7 +47,7 @@ export const generateNewGameState = (
   const questions = slice(0, 10, shuffle(DATA))
 
   const rawQuestion2gameQuestion = (question: AreaCode) => {
-    const g = pipe(
+    const getChoices = pipe(
       findMatches(MATCHERS, DATA),
       prop('matches'),
       sort(
@@ -58,7 +59,12 @@ export const generateNewGameState = (
       shuffle,
     )
 
-    return { question, choices: g(question) as AreaCode[] }
+    const plate = randomLicensePlate(question.code).code
+
+    return {
+      question: { ...question, plate },
+      choices: getChoices(question) as AreaCode[],
+    }
   }
 
   return {

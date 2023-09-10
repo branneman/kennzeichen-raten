@@ -3,6 +3,7 @@ export type AreaCode = {
   namesake: string
   district: string
   state?: string
-  score?: number
   population?: number
+  score?: number
+  plate?: string
 }

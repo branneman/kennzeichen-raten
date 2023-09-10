@@ -85,7 +85,10 @@ export default function PlayGame() {
   return (
     <>
       <h2>This license plate:</h2>
-      <LicensePlate prefix={question.code} />
+      <LicensePlate
+        prefix={question.code}
+        code={question.plate as string}
+      />
 
       <h2>Where is it from?</h2>
       <ol className="game-play__answerlist">
