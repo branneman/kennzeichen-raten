@@ -49,12 +49,12 @@ export const generateNewGameState = (
   const rawQuestion2gameQuestion = (question: AreaCode) => {
     const getChoices = pipe(
       findMatches(MATCHERS, DATA),
-      prop('matches'),
+      prop('matches') as () => AreaCode[],
       sort(
         (a: AreaCode, z: AreaCode) =>
           (z.score as number) - (a.score as number),
       ),
-      slice(0, 2),
+      slice(0, 2) as (a: AreaCode[]) => AreaCode[],
       append(question),
       shuffle,
     )
