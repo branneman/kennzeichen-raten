@@ -1,0 +1,7 @@
+.mainmenu {
+  margin: 0;
+  padding: 0;
+}
+.mainmenu__item {
+  list-style: none;
+}

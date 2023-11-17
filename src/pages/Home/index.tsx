@@ -1,16 +1,23 @@
 import { Link } from 'react-router-dom'
+import Button from '../../components/Button'
+import './index.css'
+
+const MENU = [
+  ['/play', 'Play the game'],
+  ['/database', 'Explore the database'],
+]
 
 export default function Home() {
   return (
     <>
-      <h2>Home</h2>
-      <ol>
-        <li>
-          <Link to={`/database`}>Explore the database</Link>
-        </li>
-        <li>
-          <Link to={`/play`}>Play the game</Link>
-        </li>
+      <ol className="mainmenu">
+        {MENU.map(([path, title]) => (
+          <li key={path} className="mainmenu__item">
+            <Link to={path}>
+              <Button>{title}</Button>
+            </Link>
+          </li>
+        ))}
       </ol>
     </>
   )

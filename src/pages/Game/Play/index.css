@@ -6,42 +6,80 @@
   list-style: none;
 }
 
-button.game-play__answer {
-  /* generic button reset styles */
-  width: 100%;
-  margin: 0;
-  border: 1px solid grey;
-  border-radius: 0.5em;
-  box-shadow: 2px 2px 2px grey;
-  padding: 0.75em;
-  background-color: transparent;
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  overflow: visible;
-  text-transform: none;
-  -webkit-appearance: button;
-  cursor: pointer;
-  color: inherit;
-
-  /* specific styles to this class */
-  display: inline-block;
-  margin: 0 1em 1em 0;
-  background-color: #555;
-}
-button.game-play__answer:hover {
-  box-shadow: 0 0 2px grey;
-  background-color: #888;
-}
-
 .game-play__answer--correct,
 .game-play__answer--incorrect {
   display: inline-block;
   margin-bottom: 1em;
+  margin-right: 0.5em;
 }
 .game-play__answer--correct {
   color: forestgreen;
 }
 .game-play__answer--incorrect {
   color: crimson;
+}
+
+.game-play__loader {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #282828;
+  border-radius: 50%;
+  position: relative;
+  transform: rotate(45deg);
+  box-sizing: border-box;
+}
+.game-play__loader::before {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  animation: gamePlayLoader 2s infinite linear;
+}
+@keyframes gamePlayLoader {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(
+      50% 50%,
+      0 0,
+      100% 0,
+      100% 0,
+      100% 0,
+      100% 0
+    );
+  }
+  50% {
+    clip-path: polygon(
+      50% 50%,
+      0 0,
+      100% 0,
+      100% 100%,
+      100% 100%,
+      100% 100%
+    );
+  }
+  75% {
+    clip-path: polygon(
+      50% 50%,
+      0 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      50% 50%,
+      0 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 0
+    );
+  }
 }

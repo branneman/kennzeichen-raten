@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+import Button from '../../../components/Button'
 import LicensePlate from '../../../components/LicensePlate'
 import { AreaCode } from '../../../types/area-codes'
 import { Game } from '../../../types/game'
@@ -25,7 +26,6 @@ export default function PlayGame() {
     useState(true)
   const { difficulty: difficultyStr } = useParams()
 
-  // Not started => Start
   if (!hasStarted(gameState)) {
     setGameState(
       generateNewGameState(
@@ -35,7 +35,6 @@ export default function PlayGame() {
     return null // rerender
   }
 
-  // Started + Done => Show results
   if (isDone(gameState) && showingQuestion) {
     const results = getResults(gameState as Game)
     return (
@@ -60,15 +59,12 @@ export default function PlayGame() {
   ) => {
     setShowingQuestion(false)
     setGameState(answerQuestion(gameState as Game, q, a))
-
-    // Show next question after some time (milliseconds)
-    setTimeout(() => setShowingQuestion(true), 1500)
+    setTimeout(() => setShowingQuestion(true), 2000)
   }
 
   let question: AreaCode
   let choices: AreaCode[]
-  let answer: AreaCode
-  let isCorrect: boolean
+  let isCorrect: boolean = false
 
   if (showingQuestion) {
     const q = getCurrentQuestion(gameState as Game)
@@ -78,7 +74,6 @@ export default function PlayGame() {
     const q = getLastAnswer(gameState as Game)
     question = q.question
     choices = q.choices
-    answer = q.answer
     isCorrect = q.isCorrect
   }
 
@@ -91,43 +86,43 @@ export default function PlayGame() {
       />
 
       <h2>Where is it from?</h2>
-      <ol className="game-play__answerlist">
-        {choices.map((choice, idx) => (
-          <li
-            key={`${choice.code} ${idx}`}
-            className="game-play__answerlistitem"
-          >
-            <button
-              {...{ disabled: !showingQuestion }}
-              className="game-play__answer"
-              onClick={() =>
-                addAnswerToGameState(question, choice)
-              }
+      {showingQuestion ? (
+        <ol className="game-play__answerlist">
+          {choices.map((choice, idx) => (
+            <li
+              key={`${choice.code} ${idx}`}
+              className="game-play__answerlistitem"
             >
-              {formatNamesake(choice.namesake)}
-              {choice.namesake !== choice.district &&
-                ` (${choice.district})`}
-              , {choice.state}
-            </button>
-
-            {!showingQuestion &&
-              choice === answer &&
-              isCorrect === true && (
-                <div className="game-play__answer--correct">
-                  ✅ Correct
-                </div>
-              )}
-
-            {!showingQuestion &&
-              choice === answer &&
-              isCorrect === false && (
-                <div className="game-play__answer--incorrect">
-                  ❌ Incorrect
-                </div>
-              )}
-          </li>
-        ))}
-      </ol>
+              <Button
+                {...{ disabled: !showingQuestion }}
+                className="game-play__answer"
+                onClick={() =>
+                  addAnswerToGameState(question, choice)
+                }
+              >
+                {formatNamesake(choice.namesake)}
+                {choice.namesake !== choice.district &&
+                  ` (${choice.district})`}
+                , {choice.state}
+              </Button>
+            </li>
+          ))}
+        </ol>
+      ) : isCorrect === true ? (
+        <>
+          <div className="game-play__answer--correct">
+            ✅ Correct
+          </div>
+          <div className="game-play__loader"></div>
+        </>
+      ) : (
+        <>
+          <div className="game-play__answer--incorrect">
+            ❌ Incorrect
+          </div>
+          <div className="game-play__loader"></div>
+        </>
+      )}
     </>
   )
 }
