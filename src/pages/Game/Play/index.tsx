@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import Button from '../../../components/Button'
 import LicensePlate from '../../../components/LicensePlate'
+import { namesakeEqualsDistrict } from '../../../util/clean'
 import { AreaCode } from '../../../types/area-codes'
 import { Game } from '../../../types/game'
 import {
@@ -101,8 +102,10 @@ export default function PlayGame() {
                 }
               >
                 {formatNamesake(choice.namesake)}
-                {choice.namesake !== choice.district &&
-                  ` (${choice.district})`}
+                {!namesakeEqualsDistrict(
+                  choice.namesake,
+                  choice.district,
+                ) && ` (${choice.district})`}
                 , {choice.state}
               </Button>
             </li>

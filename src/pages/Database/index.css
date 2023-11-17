@@ -1,0 +1,30 @@
+.database__search {
+  display: flex;
+  border: 1px solid grey;
+  padding: 0.5em;
+}
+.database__search label {
+  margin-top: 0.25em;
+}
+.database__search input {
+  flex: 1;
+  margin-left: 0.5em;
+  padding: 0.25em;
+}
+
+.database__table {
+  margin: 1em 0 0 0;
+  padding: 0;
+  border-collapse: separate;
+  border-spacing: 0 0.5em;
+}
+.database__table td {
+  padding-right: 0.5em;
+  vertical-align: top;
+}
+.database__code {
+  font-weight: bold;
+}
+.database__district {
+  opacity: 0.5;
+}

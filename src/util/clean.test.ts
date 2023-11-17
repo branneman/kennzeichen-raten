@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest'
-import { clean, removeDiacritics } from './clean'
+import {
+  clean,
+  removeDiacritics,
+  namesakeEqualsDistrict,
+} from './clean'
 
 describe('clean()', () => {
   it('removes all ocurrences of *', () => {
@@ -23,5 +27,20 @@ describe('removeDiacritics()', () => {
     xs.forEach(([x, y]: [string, string]) => {
       expect(removeDiacritics(x)).toEqual(y)
     })
+  })
+})
+
+describe('namesakeEqualsDistrict()', () => {
+  it('detects equal strings', () => {
+    const r = namesakeEqualsDistrict('Augsburg', 'Augsburg')
+    expect(r).toEqual(true)
+  })
+
+  it('detects equal strings, after cleaning', () => {
+    const r = namesakeEqualsDistrict(
+      '*A*ugsburg',
+      'Augsburg',
+    )
+    expect(r).toEqual(true)
   })
 })

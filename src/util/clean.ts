@@ -30,3 +30,12 @@ export const removeDiacritics = (s: string) => {
   const array2str = join('')
   return array2str(map(f, str2array(s)))
 }
+
+export const namesakeEqualsDistrict = (
+  namesake: string,
+  district: string,
+) => {
+  const s1 = removeDiacritics(clean(namesake))
+  const s2 = removeDiacritics(clean(district))
+  return s1 === s2
+}
