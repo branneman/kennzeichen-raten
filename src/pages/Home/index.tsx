@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Howto from '../../components/Howto'
 import Button from '../../components/Button'
 import './index.css'
 
@@ -10,6 +11,8 @@ const MENU = [
 export default function Home() {
   return (
     <>
+      <Howto />
+
       <ol className="mainmenu">
         {MENU.map(([path, title]) => (
           <li key={path} className="mainmenu__item">

@@ -31,25 +31,27 @@ export default function Database() {
         />
       </div>
       <table className="database__table">
-        {results.map((ac) => (
-          <tr key={`ac-${ac.code}`}>
-            <td className="database__code">{ac.code}</td>
-            <td>
-              <Namesake
-                namesake={splitByBoldStar(ac.namesake)}
-              />
-              {!namesakeEqualsDistrict(
-                ac.namesake,
-                ac.district,
-              ) && (
-                <div className="database__district">
-                  {`(${ac.district})`}
-                </div>
-              )}
-            </td>
-            <td>{ac.state}</td>
-          </tr>
-        ))}
+        <tbody>
+          {results.map((ac) => (
+            <tr key={`ac-${ac.code}`}>
+              <td className="database__code">{ac.code}</td>
+              <td>
+                <Namesake
+                  namesake={splitByBoldStar(ac.namesake)}
+                />
+                {!namesakeEqualsDistrict(
+                  ac.namesake,
+                  ac.district,
+                ) && (
+                  <div className="database__district">
+                    {`(${ac.district})`}
+                  </div>
+                )}
+              </td>
+              <td>{ac.state}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </>
   )

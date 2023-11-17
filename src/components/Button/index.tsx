@@ -1,14 +1,15 @@
 import styled from 'styled-components'
+import theme from '../App/theme'
 
 const Anchor = styled.a`
   display: inline-block;
   margin: 0 1em 1em 0;
-  border: 1px solid grey;
+  border: 1px solid ${theme.cta.border};
   border-radius: 0.5em;
-  box-shadow: 2px 2px 2px grey;
+  box-shadow: 2px 2px 2px ${theme.cta.border};
   padding: 0.75em;
-  background-color: #555;
-  color: #fff;
+  background-color: ${theme.cta.bg};
+  color: ${theme.cta.fg};
   text-decoration: none;
 
   &:hover {
@@ -20,11 +21,10 @@ const Button = styled.button`
   /* generic button reset styles */
   width: 100%;
   margin: 0;
-  border: 1px solid grey;
+  border: 1px solid ${theme.cta.border};
   border-radius: 0.5em;
-  box-shadow: 2px 2px 2px grey;
+  box-shadow: 2px 2px 2px ${theme.cta.border};
   padding: 0.75em;
-  background-color: transparent;
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
@@ -32,12 +32,12 @@ const Button = styled.button`
   text-transform: none;
   -webkit-appearance: button;
   cursor: pointer;
-  color: #fff;
 
   /* specific styles to this component */
   display: inline-block;
   margin: 0 1em 1em 0;
-  background-color: #555;
+  background-color: ${theme.cta.bg};
+  color: ${theme.cta.fg};
 
   &:hover {
     filter: brightness(0.85);

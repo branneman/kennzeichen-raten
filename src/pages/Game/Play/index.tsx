@@ -39,18 +39,18 @@ export default function PlayGame() {
   if (isDone(gameState) && showingQuestion) {
     const results = getResults(gameState as Game)
     return (
-      <>
-        <h2>Done!</h2>
+      <div className="game-play__results">
+        <h2>Results</h2>
         <p>
           Your score:{' '}
           <strong>{results.percentage}% correct</strong>
         </p>
         <p>
-          Correct: {results.correct}
+          Correct answers: {results.correct}
           <br />
-          Incorrect: {results.incorrect}
+          Incorrect answers: {results.incorrect}
         </p>
-      </>
+      </div>
     )
   }
 

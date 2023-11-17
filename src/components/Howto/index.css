@@ -1,0 +1,24 @@
+.howto {
+  margin-bottom: 1em;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 1em;
+}
+.howto__arrow {
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  margin-left: 1.5em;
+  background-image: url('/kennzeichen-raten/img/u+2bb1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+@media screen and (min-width: 400px) {
+  .howto__arrow {
+    margin-left: 1.9em;
+  }
+}
+.howto__text {
+  display: inline-block;
+  margin-top: 2em;
+  vertical-align: top;
+}

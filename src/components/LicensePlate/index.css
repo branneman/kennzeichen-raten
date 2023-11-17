@@ -13,10 +13,10 @@
 }
 
 .license-plate__flag-country {
-  padding: 2.25em 0.5em .25em 0.5em;
+  padding: 2.25em 0.5em 0.25em 0.5em;
   background-color: #039;
-  background-image: url('./flag-of-europe.svg');
-  background-position: -0.55em 0.20em;
+  background-image: url('/kennzeichen-raten/img/flag-of-europe.svg');
+  background-position: -0.55em 0.2em;
   background-size: 2.8125em;
   background-repeat: no-repeat;
   color: white;
@@ -25,7 +25,7 @@
 
 .license-plate__district,
 .license-plate__code {
-  padding: 0 .1em;
+  padding: 0 0.1em;
   font-family: 'fe-schrift', Arial, Helvetica, sans-serif;
   font-weight: normal;
   font-size: 3.75em;
@@ -41,7 +41,7 @@
 
 .license-plate__seals {
   width: 20px;
-  background-image: url('./seal-of-safety.svg');
+  background-image: url('/kennzeichen-raten/img/seal-of-safety.svg');
   background-position: 0 0.4em;
   background-size: 20px;
   background-repeat: no-repeat;
