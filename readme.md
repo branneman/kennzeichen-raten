@@ -1,5 +1,19 @@
 # Kennzeichen-Raten (Nummernschild-Raten)
 
+## How to Play
+
+Visit [https://branneman.github.io/kennzeichen-raten/](https://branneman.github.io/kennzeichen-raten/)
+
+## How to run development environment
+
+A modern Node.js version is required. v18 and higher should work.
+
+```
+git clone https://github.com/branneman/kennzeichen-raten.git
+npm ci
+npm start
+```
+
 ## Data Sources
 
 - https://www.adac.de/rund-ums-fahrzeug/auto-kaufen-verkaufen/kfz-zulassung/kfz-kennzeichen-deutschland/

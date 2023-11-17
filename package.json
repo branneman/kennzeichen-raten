@@ -1,7 +1,7 @@
 {
   "name": "kennzeichen-raten",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Bran van der Meer <bran.van.der.meer@protonmail.com>",
   "license": "ISC",
   "type": "module",
@@ -10,7 +10,8 @@
     "dev": "stmux -w always -n -M -- [ -s 1/3 \"vite\" .. [ \"vitest src\" : -s 1/3 \"tsc --noEmit --strict --watch\" ] ]",
     "build": "npm run lint && tsc --strict && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm version minor -m \"chore: Release version %s\" && npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "js-levenshtein": "^1.1.6",
@@ -34,6 +35,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "gh-pages": "^6.1.0",
     "prettier": "^3.0.2",
     "stmux": "^1.8.7",
     "styled-components": "^6.1.1",
