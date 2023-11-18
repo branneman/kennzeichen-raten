@@ -11,6 +11,7 @@ export function isMatch(query: string) {
 
   return (ac: AreaCode): boolean => {
     return (
+      clean(ac.code) === q ||
       clean(ac.namesake).includes(q) ||
       clean(ac.district).includes(q) ||
       replaceDiacritics(clean(ac.namesake)).includes(q) ||

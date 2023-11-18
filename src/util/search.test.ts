@@ -3,6 +3,20 @@ import { AreaCode } from '../types/area-codes'
 import { isMatch } from './search'
 
 describe('isMatch()', () => {
+  it('matches on a literal code', () => {
+    const q = 'abi'
+    const ac: AreaCode = {
+      code: 'ABI',
+      namesake: '*A*nhalt-*B**i*tterfeld',
+      district: 'Anhalt-Bitterfeld',
+      state: 'Sachsen-Anhalt',
+    }
+
+    const r = isMatch(q)(ac)
+
+    expect(r).toEqual(true)
+  })
+
   it('matches on a literal namesake', () => {
     const q = 'Augsburg'
     const ac: AreaCode = {
