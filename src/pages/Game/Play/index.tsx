@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom'
 
 import Button from '../../../components/Button'
 import LicensePlate from '../../../components/LicensePlate'
-import { namesakeEqualsDistrict } from '../../../util/clean'
+import {
+  formatNamesake,
+  namesakeEqualsDistrict,
+} from '../../../util/clean'
 import { AreaCode } from '../../../types/area-codes'
 import { Game } from '../../../types/game'
 import {
@@ -16,7 +19,6 @@ import {
   answerQuestion,
   getResults,
 } from '../../../util/game'
-import { formatNamesake } from '../../../util/clean'
 import './index.css'
 
 export default function PlayGame() {

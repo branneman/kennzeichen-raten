@@ -52,12 +52,10 @@ body {
     display: none;
     opacity: 1;
   }
-
   60% {
     display: block;
     opacity: 1;
   }
-
   100% {
     display: block;
     opacity: 0;
@@ -66,14 +64,14 @@ body {
 
 .main {
   position: relative;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 2rem;
   z-index: 1;
 }
 .main.hidden {
   display: none;
 }
-
-#root {
-  max-width: 380px;
-  margin: 0 auto;
-  padding: 2rem;
+.main.debug {
+  max-width: 100vw;
 }

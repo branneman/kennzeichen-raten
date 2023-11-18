@@ -20,6 +20,12 @@ const mockAreaCode = () => ({
   district: randomStr(8),
 })
 
+describe('matchers', () => {
+  it.skip('easy: should generate 2 new answers per question', () => {})
+  it.skip('medium: should generate 2 new answers per question', () => {})
+  it.skip('hard: should generate 2 new answers per question', () => {})
+})
+
 describe('hasStarted()', () => {
   it('returns true with valid date', () => {
     const game: Game = {

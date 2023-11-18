@@ -1,0 +1,13 @@
+.debug_columns {
+  display: flex;
+}
+.debug_columns > * {
+  flex: 1;
+}
+.debug__ac p {
+  margin: 0 0 0 1.5em;
+}
+.debug__ac p:first-of-type {
+  margin: 1em 0 0 0;
+  font-weight: bold;
+}

@@ -14,13 +14,26 @@ import { shuffle } from './array'
 
 import DATA from '../data/area-codes.json' assert { type: 'json' }
 
-const MATCHERS: Matcher[] = [
-  { f: matchNamesakeOnStartingWithCode, n: 10 },
-  { f: matchNamesakeOnContainingCodeInOrder, n: 10 },
-  { f: matchNamesakeOnContainingCodeNotInOrder, n: 5 },
-  { f: matchNamesakeOnNamesakeLevenshtein(4), n: 10 },
-  { f: matchNamesakeOnNamesakeLevenshtein(10), n: 2 },
-]
+const MATCHERS: { [key: string]: Matcher[] } = {
+  '1': [
+    { f: matchNamesakeOnNamesakeLevenshtein(10), n: 15 },
+    { f: matchNamesakeOnStartingWithCode, n: 10 },
+    { f: matchNamesakeOnContainingCodeInOrder, n: 10 },
+  ],
+  '2': [
+    { f: matchNamesakeOnNamesakeLevenshtein(5), n: 10 },
+    { f: matchNamesakeOnStartingWithCode, n: 10 },
+    { f: matchNamesakeOnContainingCodeInOrder, n: 10 },
+    { f: matchNamesakeOnContainingCodeNotInOrder, n: 5 },
+  ],
+  '3': [
+    { f: matchNamesakeOnStartingWithCode, n: 15 },
+    { f: matchNamesakeOnContainingCodeInOrder, n: 10 },
+    { f: matchNamesakeOnContainingCodeNotInOrder, n: 5 },
+    { f: matchNamesakeOnNamesakeLevenshtein(4), n: 10 },
+    { f: matchNamesakeOnNamesakeLevenshtein(10), n: 2 },
+  ],
+}
 
 export const hasStarted = (game: Game | null) =>
   game !== null
@@ -48,7 +61,7 @@ export const generateNewGameState = (
 
   const rawQuestion2gameQuestion = (question: AreaCode) => {
     const getChoices = pipe(
-      findMatches(MATCHERS, DATA),
+      findMatches(MATCHERS[String(difficulty)], DATA),
       prop('matches') as () => AreaCode[],
       sort(
         (a: AreaCode, z: AreaCode) =>

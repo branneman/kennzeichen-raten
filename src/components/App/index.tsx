@@ -1,11 +1,22 @@
 import { useRef } from 'react'
-import { Outlet } from 'react-router-dom'
+import {
+  useNavigate,
+  useLocation,
+  Outlet,
+} from 'react-router-dom'
 
 import Header from '../Header'
-import { useAllImagesLoaded } from '../../util/dom'
+import {
+  useKeySequenceDetector,
+  useAllImagesLoaded,
+} from '../../util/dom'
 import './index.css'
 
 export default function App() {
+  const navigate = useNavigate()
+  useKeySequenceDetector('debug', () => navigate('/debug'))
+  const isDebugRoute = useLocation().pathname === '/debug'
+
   const refLoaderCover = useRef<HTMLDivElement>(null)
   const refMain = useRef<HTMLDivElement>(null)
   useAllImagesLoaded(() => {
@@ -27,9 +38,14 @@ export default function App() {
         className="loader-cover"
       />
 
-      <div ref={refMain} className="main hidden">
-        <Header />
-        <Outlet />
+      <div
+        ref={refMain}
+        className={`main hidden${isDebugRoute && ' debug'}`}
+      >
+        <>
+          <Header />
+          <Outlet />
+        </>
       </div>
     </>
   )
