@@ -37,7 +37,7 @@ export default function PlayGame() {
   }
 
   if (isDone(gameState) && showingQuestion) {
-    const results = getResults(gameState as Game)
+    const results = getResults(gameState!)
     return (
       <div className="game-play__results">
         <h2>Results</h2>
@@ -59,20 +59,23 @@ export default function PlayGame() {
     a: AreaCode,
   ) => {
     setShowingQuestion(false)
-    setGameState(answerQuestion(gameState as Game, q, a))
+    setGameState(answerQuestion(gameState!, q, a))
     setTimeout(() => setShowingQuestion(true), 2000)
   }
+
+  let questionNumber: number = 1 + gameState!.answers.length
 
   let question: AreaCode
   let choices: AreaCode[]
   let isCorrect: boolean = false
 
   if (showingQuestion) {
-    const q = getCurrentQuestion(gameState as Game)
+    const q = getCurrentQuestion(gameState!)
     question = q.question
     choices = q.choices
   } else {
-    const q = getLastAnswer(gameState as Game)
+    questionNumber -= 1
+    const q = getLastAnswer(gameState!)
     question = q.question
     choices = q.choices
     isCorrect = q.isCorrect
@@ -80,6 +83,10 @@ export default function PlayGame() {
 
   return (
     <>
+      <p className="game-play__qxofy">
+        &raquo; Question {questionNumber} from 10
+      </p>
+
       <h2>This license plate:</h2>
       <LicensePlate
         prefix={question.code}
