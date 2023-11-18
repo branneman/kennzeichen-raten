@@ -14,9 +14,9 @@ export default function Database() {
   const [query, setQuery] = useState('')
 
   const results: AreaCode[] =
-    query !== ''
-      ? filter(isMatch(query), areaCodes)
-      : areaCodes
+    query === ''
+      ? areaCodes
+      : filter(isMatch(query), areaCodes)
 
   return (
     <>

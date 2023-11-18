@@ -17,6 +17,10 @@ body {
   color: #fff;
   background-color: #1a2328;
 }
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
 .background,
 .loader-cover {

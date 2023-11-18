@@ -1,4 +1,12 @@
-import { append, map, pipe, prop, slice, sort } from 'ramda'
+import {
+  append,
+  clone,
+  map,
+  pipe,
+  prop,
+  slice,
+  sort,
+} from 'ramda'
 import { AreaCode } from '../types/area-codes'
 import { Game, Difficulty } from '../types/game'
 import { randomLicensePlate } from './license-plate'
@@ -57,7 +65,7 @@ export const generateNewGameState = (
   difficulty: Difficulty,
 ): Game => {
   // generate 10 questions
-  const questions = slice(0, 10, shuffle(DATA))
+  const questions = slice(0, 10, shuffle(clone(DATA)))
 
   const rawQuestion2gameQuestion = (question: AreaCode) => {
     const getChoices = pipe(
