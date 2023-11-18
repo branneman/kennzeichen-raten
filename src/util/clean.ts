@@ -1,7 +1,7 @@
 import { map, split, join, toLower } from 'ramda'
 
 // Source: https://en.m.wikipedia.org/wiki/German_orthography
-const GERMAN_DIACRITICS = new Map([
+const GERMAN_DIACRITICS_REPLACE = new Map([
   ['Ä', 'AE'],
   ['ä', 'ae'],
   ['Ö', 'OE'],
@@ -10,6 +10,14 @@ const GERMAN_DIACRITICS = new Map([
   ['ü', 'ue'],
   ['ẞ', 'SS'],
   ['ß', 'ss'],
+])
+const GERMAN_DIACRITICS_REMOVE = new Map([
+  ['Ä', 'A'],
+  ['ä', 'a'],
+  ['Ö', 'O'],
+  ['ö', 'o'],
+  ['Ü', 'U'],
+  ['ü', 'u'],
 ])
 
 export const clean = (s: string) =>
@@ -20,10 +28,21 @@ export const clean = (s: string) =>
 export const formatNamesake = (s: string) =>
   s.replace(/\*/g, '')
 
+export const replaceDiacritics = (s: string) => {
+  const f = (char: string) =>
+    GERMAN_DIACRITICS_REPLACE.has(char)
+      ? GERMAN_DIACRITICS_REPLACE.get(char)
+      : char
+
+  const str2array = split('')
+  const array2str = join('')
+  return array2str(map(f, str2array(s)))
+}
+
 export const removeDiacritics = (s: string) => {
   const f = (char: string) =>
-    GERMAN_DIACRITICS.has(char)
-      ? GERMAN_DIACRITICS.get(char)
+    GERMAN_DIACRITICS_REMOVE.has(char)
+      ? GERMAN_DIACRITICS_REMOVE.get(char)
       : char
 
   const str2array = split('')
@@ -35,7 +54,7 @@ export const namesakeEqualsDistrict = (
   namesake: string,
   district: string,
 ) => {
-  const s1 = removeDiacritics(clean(namesake))
-  const s2 = removeDiacritics(clean(district))
+  const s1 = replaceDiacritics(clean(namesake))
+  const s2 = replaceDiacritics(clean(district))
   return s1 === s2
 }

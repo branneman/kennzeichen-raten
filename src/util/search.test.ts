@@ -36,7 +36,6 @@ describe('isMatch()', () => {
       namesake: 'Zeulenroda',
       district: 'Greiz',
       state: 'Thüringen',
-      population: 96381,
     }
 
     const r = isMatch(q)(ac)
@@ -44,15 +43,27 @@ describe('isMatch()', () => {
     expect(r).toEqual(true)
   })
 
-  // not implemented
-  it.skip('matches diacritic-insensitive (ä -> a, etc.)', () => {
+  it('matches diacritic-insensitive (ö -> oe)', () => {
     const q = 'loebau'
     const ac: AreaCode = {
       code: 'ZI',
       namesake: 'Löbau-Zittau',
       district: 'Löbau-Zittau',
       state: 'Sachsen',
-      population: 138772,
+    }
+
+    const r = isMatch(q)(ac)
+
+    expect(r).toEqual(true)
+  })
+
+  it('matches diacritic-insensitive (ü -> u)', () => {
+    const q = 'munchen'
+    const ac: AreaCode = {
+      code: 'M',
+      namesake: 'München',
+      district: 'München',
+      state: 'Bayern',
     }
 
     const r = isMatch(q)(ac)

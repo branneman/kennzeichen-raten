@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   clean,
+  replaceDiacritics,
   removeDiacritics,
   namesakeEqualsDistrict,
 } from './clean'
@@ -15,16 +16,31 @@ describe('clean()', () => {
   })
 })
 
-describe('removeDiacritics()', () => {
+describe('replaceDiacritics()', () => {
   it('replaces diacritics with base letters', () => {
-    const xs: [string, string][] = [
+    const xs = [
       ['Oberallgäu', 'Oberallgaeu'],
       ['Görlitz', 'Goerlitz'],
       ['München', 'Muenchen'],
       ['Weißenfels', 'Weissenfels'],
     ]
 
-    xs.forEach(([x, y]: [string, string]) => {
+    xs.forEach(([x, y]) => {
+      expect(replaceDiacritics(x)).toEqual(y)
+    })
+  })
+})
+
+describe('removeDiacritics()', () => {
+  it('replaces diacritics with base letters', () => {
+    const xs = [
+      ['Oberallgäu', 'Oberallgau'],
+      ['Görlitz', 'Gorlitz'],
+      ['München', 'Munchen'],
+      ['Weißenfels', 'Weißenfels'],
+    ]
+
+    xs.forEach(([x, y]) => {
       expect(removeDiacritics(x)).toEqual(y)
     })
   })
