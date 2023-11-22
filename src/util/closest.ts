@@ -39,6 +39,12 @@ export const findMatches = curry(
   },
 )
 
+export const matchNamesakeOnHighPopulation =
+  (threshold: number) => (_a: AreaCode, b: AreaCode) => {
+    if (!b.population) return false
+    return b.population >= threshold
+  }
+
 export const matchNamesakeOnStartingWithCode = (
   a: AreaCode,
   b: AreaCode,
@@ -47,6 +53,16 @@ export const matchNamesakeOnStartingWithCode = (
   const namesake = clean(b.namesake)
 
   return namesake.startsWith(code)
+}
+
+export const matchNamesakeOnFirstLetterOfCode = (
+  a: AreaCode,
+  b: AreaCode,
+) => {
+  const code = clean(a.code)
+  const namesake = clean(b.namesake)
+
+  return code[0] === namesake[0]
 }
 
 export const matchNamesakeOnContainingCodeInOrder = (

@@ -90,6 +90,9 @@ function AreaCodeParagraph(props: { areacode: AreaCode }) {
       {!namesakeEqualsDistrict(ac.namesake, ac.district) &&
         ` (${ac.district})`}
       , {ac.state}
+      {ac.score && (
+        <em style={{ opacity: 0.5 }}>, score={ac.score}</em>
+      )}
       <br />
     </p>
   )

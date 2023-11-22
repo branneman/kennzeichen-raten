@@ -86,7 +86,8 @@ export default function PlayGame() {
   return (
     <>
       <p className="game-play__qxofy">
-        &raquo; Question {questionNumber} from 10
+        &raquo; Question {questionNumber} from{' '}
+        {gameState!.questions.length}
       </p>
 
       <h2>This license plate:</h2>

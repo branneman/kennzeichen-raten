@@ -1,16 +1,21 @@
 import { randomBytes } from 'crypto'
 import { describe, it, expect } from 'vitest'
+import { clone } from 'ramda'
 import {
   hasStarted,
   isDone,
   difficultyStr2Int,
   generateNewGameState,
+  getDataByDifficulty,
   getCurrentQuestion,
   getLastAnswer,
   answerQuestion,
   getResults,
 } from './game'
+import { AreaCode } from '../types/area-codes'
 import { Game } from '../types/game'
+
+import DATA from '../data/area-codes.json' assert { type: 'json' }
 
 const randomStr = (len: number) =>
   randomBytes(Math.floor(len / 2)).toString('hex')
@@ -149,14 +154,40 @@ describe('generateNewGameState()', () => {
     expect(r.questions.length).toEqual(10)
   })
 
-  it.skip('generates 25 questions difficulty=medium', () => {
+  it('generates 20 questions difficulty=medium', () => {
     const r = generateNewGameState(2)
-    expect(r.questions.length).toEqual(25)
+    expect(r.questions.length).toEqual(20)
   })
 
-  it.skip('generates 50 questions difficulty=hard', () => {
+  it('generates 20 questions difficulty=hard', () => {
     const r = generateNewGameState(3)
-    expect(r.questions.length).toEqual(50)
+    expect(r.questions.length).toEqual(20)
+  })
+})
+
+describe('getDataByDifficulty()', () => {
+  it('returns only code.length=1 districts when difficulty=easy', () => {
+    const data = clone(DATA)
+    const result = getDataByDifficulty(1, data)
+    expect(
+      result.every((ac: AreaCode) => ac.code.length === 1),
+    ).toEqual(true)
+  })
+
+  it('returns only code.length=2 districts when difficulty=medium', () => {
+    const data = clone(DATA)
+    const result = getDataByDifficulty(2, data)
+    expect(
+      result.every((ac: AreaCode) => ac.code.length === 2),
+    ).toEqual(true)
+  })
+
+  it('returns no code.length=1 districts when difficulty=hard', () => {
+    const data = clone(DATA)
+    const result = getDataByDifficulty(3, data)
+    expect(
+      result.every((ac: AreaCode) => ac.code.length !== 1),
+    ).toEqual(true)
   })
 })
 

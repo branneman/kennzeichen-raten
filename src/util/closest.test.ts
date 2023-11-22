@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest'
 import { AreaCode } from '../types/area-codes'
 import {
   findMatches,
+  matchNamesakeOnHighPopulation,
   matchNamesakeOnStartingWithCode,
+  matchNamesakeOnFirstLetterOfCode,
   matchNamesakeOnContainingCodeInOrder,
   matchNamesakeOnContainingCodeNotInOrder,
   matchNamesakeOnNamesakeLevenshtein,
@@ -96,6 +98,32 @@ describe('findMatches()', () => {
   })
 })
 
+describe('matchNamesakeOnHighPopulation()', () => {
+  it('returns true on population over threshold', () => {
+    const a = { code: '', namesake: '', district: '' }
+    const b = {
+      code: 'A',
+      namesake: '*A*ugsburg',
+      district: 'Augsburg',
+      population: 550_000,
+    }
+    const f = matchNamesakeOnHighPopulation(500_000)
+    expect(f(a, b)).toEqual(true)
+  })
+
+  it('returns false on population under threshold', () => {
+    const a = { code: '', namesake: '', district: '' }
+    const b = {
+      code: 'H',
+      namesake: '*H*annover',
+      district: 'Hannover',
+      population: 450_000,
+    }
+    const f = matchNamesakeOnHighPopulation(500_000)
+    expect(f(a, b)).toEqual(false)
+  })
+})
+
 describe('matchNamesakeOnStartingWithCode()', () => {
   const f = matchNamesakeOnStartingWithCode
   const xs: AreaCode[] = [
@@ -141,6 +169,58 @@ describe('matchNamesakeOnStartingWithCode()', () => {
     expect(f(xs[3], xs[0])).toEqual(false)
     expect(f(xs[3], xs[1])).toEqual(false)
     expect(f(xs[3], xs[2])).toEqual(false)
+  })
+})
+
+describe('matchNamesakeOnFirstLetterOfCode()', () => {
+  const f = matchNamesakeOnFirstLetterOfCode
+  const xs: AreaCode[] = [
+    {
+      code: 'A',
+      namesake: '*A*ugsburg',
+      district: 'Augsburg',
+    },
+    {
+      code: 'AH',
+      namesake: '*Ah*aus',
+      district: 'Ahaus',
+    },
+    {
+      code: 'AW',
+      namesake: '*A*hr*w*eiler',
+      district: 'Ahrweiler',
+    },
+    {
+      code: 'H',
+      namesake: '*H*annover',
+      district: 'Hannover',
+    },
+    {
+      code: 'HA',
+      namesake: '*Ha*gen',
+      district: 'Hagen',
+    },
+  ]
+
+  it('correct match', () => {
+    expect(f(xs[0], xs[1])).toEqual(true)
+    expect(f(xs[0], xs[2])).toEqual(true)
+
+    expect(f(xs[3], xs[4])).toEqual(true)
+    expect(f(xs[4], xs[3])).toEqual(true)
+  })
+
+  it('correct non-match', () => {
+    expect(f(xs[0], xs[3])).toEqual(false)
+    expect(f(xs[0], xs[4])).toEqual(false)
+
+    expect(f(xs[3], xs[0])).toEqual(false)
+    expect(f(xs[3], xs[1])).toEqual(false)
+    expect(f(xs[3], xs[2])).toEqual(false)
+
+    expect(f(xs[4], xs[0])).toEqual(false)
+    expect(f(xs[4], xs[1])).toEqual(false)
+    expect(f(xs[4], xs[2])).toEqual(false)
   })
 })
 
