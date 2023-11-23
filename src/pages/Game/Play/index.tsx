@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import Button from '../../../components/Button'
 import LicensePlate from '../../../components/LicensePlate'
@@ -47,11 +47,19 @@ export default function PlayGame() {
           Your score:{' '}
           <strong>{results.percentage}% correct</strong>
         </p>
+        <p>Difficulty level: {difficultyStr}</p>
         <p>
           Correct answers: {results.correct}
           <br />
           Incorrect answers: {results.incorrect}
         </p>
+        <hr />
+        <Link to="/play">
+          <Button>Play again</Button>
+        </Link>
+        <Link to="/">
+          <Button>Home</Button>
+        </Link>
       </div>
     )
   }

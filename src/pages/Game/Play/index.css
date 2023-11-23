@@ -13,84 +13,37 @@
 .game-play__answer--correct,
 .game-play__answer--incorrect {
   display: inline-block;
+  margin-top: 1em;
   margin-bottom: 1em;
   margin-right: 0.5em;
-  font-size: 1.25em;
+  font-size: 1.6em;
   text-shadow: 1px 1px 2px #000;
-}
-.game-play__answer--correct {
-  color: forestgreen;
-}
-.game-play__answer--incorrect {
-  color: crimson;
 }
 
 .game-play__results {
   font-size: 1.2em;
 }
+.game-play__results hr {
+  margin: 1.5em 0 2em 0;
+  border: 0;
+  height: 1px;
+  background: #fff;
+}
 
 .game-play__loader {
-  position: relative;
-  top: 0.35em;
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  border: 5px solid #1a2328;
-  border-radius: 50%;
-  transform: rotate(45deg);
-  box-sizing: border-box;
-}
-.game-play__loader::before {
-  content: '';
-  position: absolute;
-  box-sizing: border-box;
-  inset: -5px;
-  border-radius: 50%;
-  border: 5px solid #ccc;
-  animation: gamePlayLoader 2s infinite linear;
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(
+      circle closest-side,
+      #fff 90%,
+      #0000
+    )
+    0 / calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: gamePlayLoader 0.75s steps(4) infinite;
 }
 @keyframes gamePlayLoader {
-  0% {
-    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
-  }
-  25% {
-    clip-path: polygon(
-      50% 50%,
-      0 0,
-      100% 0,
-      100% 0,
-      100% 0,
-      100% 0
-    );
-  }
-  50% {
-    clip-path: polygon(
-      50% 50%,
-      0 0,
-      100% 0,
-      100% 100%,
-      100% 100%,
-      100% 100%
-    );
-  }
-  75% {
-    clip-path: polygon(
-      50% 50%,
-      0 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%
-    );
-  }
-  100% {
-    clip-path: polygon(
-      50% 50%,
-      0 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 0
-    );
+  to {
+    clip-path: inset(0 -34% 0 0);
   }
 }
