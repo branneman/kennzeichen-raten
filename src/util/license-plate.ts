@@ -1,27 +1,32 @@
-import { randomString } from './random'
+import { randomString, randomNumber } from './random'
 
 // https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Germany#Serial_letters_and_digits
 // Todo:
-// - Only 26 latin letters allowed? So no ÄÖÜẞ ?
 // - Letters have Prohibited combinations
-// - Digits can not lead with 0
 
-const MAX_LENGTH = 8 // including 1 space in the second part
 const ALPHABET_LETTERS = 'ABCDEFGHIJKLMOPQRSTUVWXYZ'
 const ALPHABET_DIGITS = '0123456789'
 
+// [A-ZÄÖÜ]{1,3} [A-Z]{1,2} [0-9]{2,4}
 export const randomLicensePlate = (prefix: string) => {
-  // 1 to 2 letters
-  const lettersLength = Math.ceil(Math.random() * 2)
+  const lettersLength = randomNumber(1, 2)
   const letters = randomString(
     lettersLength,
     ALPHABET_LETTERS,
   )
 
-  // 2 to 5 digits
-  const digitsLength =
-    MAX_LENGTH - 1 - prefix.length - lettersLength
-  const digits = randomString(digitsLength, ALPHABET_DIGITS)
+  let digitsLength
+  if (prefix.length === 3 && letters.length === 2) {
+    digitsLength = randomNumber(2, 3)
+  } else {
+    digitsLength = randomNumber(2, 4)
+  }
+  let digits = randomString(digitsLength, ALPHABET_DIGITS)
+
+  if (digits[0] === '0') {
+    digits =
+      randomString(1, '123456789') + digits.substring(1)
+  }
 
   const code = letters + ' ' + digits
 

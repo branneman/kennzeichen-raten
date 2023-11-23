@@ -14,3 +14,7 @@ export function randomString(
   }
   return result
 }
+
+export const randomNumber = (min: number, max: number) => {
+  return min + Math.ceil(Math.random() * (max - min))
+}

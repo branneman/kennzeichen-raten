@@ -1,36 +1,43 @@
 import { describe, it, expect } from 'vitest'
-import { randomString } from './random'
+import { randomString, randomNumber } from './random'
 import { randomLicensePlate } from './license-plate'
 
 describe('randomLicensePlate()', () => {
-  const randomPrefix = () =>
-    randomString(
-      1 + Math.ceil(Math.random() * 2),
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ',
-    )
   const run = (n: number, f: () => void) => {
     for (let i = 0; i < n; i++) f()
   }
 
-  it('adheres to the format', () => {
-    const re = /[A-ZÄÖÜ]{1,3} [A-Z]{1,2} [0-9]{2,5}/
+  it('code length (incl. space) between 4 and 7 when prefix is 1-2 letters', () => {
+    // short code: `A 12`
+    // long code: `AB 1234`
+    const RE = /[A-Z]{1,2} [0-9]{2,4}/
 
-    run(1e4, () => {
-      const prefix = randomPrefix().toUpperCase()
-      const code = randomLicensePlate(prefix)
-      const plate = code.prefix + ' ' + code.code
+    run(1e5, () => {
+      const { code } = randomLicensePlate('A')
+      expect(RE.test(code)).toEqual(true)
+    })
 
-      expect(re.test(plate)).toEqual(true)
+    run(1e5, () => {
+      const { code } = randomLicensePlate('AB')
+      expect(RE.test(code)).toEqual(true)
     })
   })
 
-  it("doesn't generate strings longer than 8", () => {
-    run(1e4, () => {
-      const prefix = randomPrefix()
-      const code = randomLicensePlate(prefix)
-      const plate = code.prefix + code.code
+  it('code length (incl. space) between 4 and 6 when prefix is 3 letters', () => {
+    run(1e5, () => {
+      const { code } = randomLicensePlate('ABC')
+      expect(code.length >= 4).toEqual(true)
+      expect(code.length <= 6).toEqual(true)
+    })
+  })
 
-      expect(plate.length).toBeLessThanOrEqual(8)
+  it('digits can not lead with 0', () => {
+    run(1e5, () => {
+      const prefixLength = randomNumber(1, 3)
+      const prefix = randomString(prefixLength, 'ABCDEF')
+
+      const { code } = randomLicensePlate(prefix)
+      expect(code[0]).not.toEqual('0')
     })
   })
 })
