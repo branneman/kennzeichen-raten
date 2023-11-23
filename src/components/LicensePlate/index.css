@@ -3,6 +3,7 @@
   border: 3px solid black;
   border-radius: 0.5em;
   overflow: hidden;
+  white-space: nowrap;
   background: #eaeef3;
   font-size: 14px;
 }
