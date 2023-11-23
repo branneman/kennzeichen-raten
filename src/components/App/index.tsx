@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import {
   useNavigate,
   useLocation,
@@ -6,10 +6,7 @@ import {
 } from 'react-router-dom'
 
 import Header from '../Header'
-import {
-  useKeySequenceDetector,
-  useAllImagesLoaded,
-} from '../../util/dom'
+import { useKeySequenceDetector } from '../../util/dom'
 import './index.css'
 
 export default function App() {
@@ -19,11 +16,11 @@ export default function App() {
 
   const refLoaderCover = useRef<HTMLDivElement>(null)
   const refMain = useRef<HTMLDivElement>(null)
-  useAllImagesLoaded(() => {
-    refLoaderCover.current!.classList.add('animate')
-    setTimeout(() => {
-      refMain.current!.classList.remove('hidden')
-    }, 500)
+  useEffect(() => {
+    setTimeout(
+      () => refMain.current!.classList.remove('hidden'),
+      500,
+    )
   })
   const onAnimationEnd = () => {
     refLoaderCover.current!.remove()
@@ -35,12 +32,12 @@ export default function App() {
       <div
         ref={refLoaderCover}
         onAnimationEnd={onAnimationEnd}
-        className="loader-cover"
+        className="loader-cover animate"
       />
 
       <div
         ref={refMain}
-        className={`main hidden${isDebugRoute && ' debug'}`}
+        className={`main hidden ${isDebugRoute && 'debug'}`}
       >
         <>
           <Header />
