@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 
 export function useKeySequenceDetector(
-  keySequence: string,
-  onSequenceDetected: () => void,
+  keySequence,
+  onSequenceDetected,
 ) {
   const [typedKeys, setTypedKeys] = useState('')
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e) => {
       const newTypedKeys = typedKeys + e.key
 
       if (newTypedKeys === keySequence) {

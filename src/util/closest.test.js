@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest'
-import { AreaCode } from '../types/area-codes'
 import {
   findMatches,
   matchNamesakeOnHighPopulation,
@@ -11,7 +10,7 @@ import {
 } from './closest'
 
 describe('findMatches()', () => {
-  const xs: AreaCode[] = [
+  const xs = [
     {
       code: 'WT',
       namesake: '*W*aldshu*t*',
@@ -126,7 +125,7 @@ describe('matchNamesakeOnHighPopulation()', () => {
 
 describe('matchNamesakeOnStartingWithCode()', () => {
   const f = matchNamesakeOnStartingWithCode
-  const xs: AreaCode[] = [
+  const xs = [
     {
       code: 'A',
       namesake: '*A*ugsburg',
@@ -174,7 +173,7 @@ describe('matchNamesakeOnStartingWithCode()', () => {
 
 describe('matchNamesakeOnFirstLetterOfCode()', () => {
   const f = matchNamesakeOnFirstLetterOfCode
-  const xs: AreaCode[] = [
+  const xs = [
     {
       code: 'A',
       namesake: '*A*ugsburg',
@@ -226,7 +225,7 @@ describe('matchNamesakeOnFirstLetterOfCode()', () => {
 
 describe('matchNamesakeOnContainingCodeInOrder()', () => {
   const f = matchNamesakeOnContainingCodeInOrder
-  const xs: AreaCode[] = [
+  const xs = [
     {
       code: 'WT',
       namesake: '*W*aldshu*t*',
@@ -272,7 +271,7 @@ describe('matchNamesakeOnContainingCodeInOrder()', () => {
 
 describe('matchNamesakeOnContainingCodeNotInOrder()', () => {
   const f = matchNamesakeOnContainingCodeNotInOrder
-  const xs: AreaCode[] = [
+  const xs = [
     {
       code: 'WT',
       namesake: '*W*aldshu*t*',
@@ -324,7 +323,7 @@ describe('matchNamesakeOnContainingCodeNotInOrder()', () => {
 })
 
 describe('matchNamesakeOnNamesakeLevenshtein()', () => {
-  const xs: AreaCode[] = [
+  const xs = [
     {
       code: 'WT',
       namesake: '*W*aldshu*t*',

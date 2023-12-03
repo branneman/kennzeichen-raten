@@ -1,5 +1,5 @@
 export function randomString(
-  length: number,
+  length,
   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
 ) {
   let result = ''
@@ -15,6 +15,6 @@ export function randomString(
   return result
 }
 
-export const randomNumber = (min: number, max: number) => {
+export const randomNumber = (min, max) => {
   return min + Math.ceil(Math.random() * (max - min))
 }

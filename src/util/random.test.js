@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { randomNumber } from './random'
 
 describe('randomNumber()', () => {
-  const run = (n: number, f: () => void) => {
+  const run = (n, f) => {
     for (let i = 0; i < n; i++) f()
   }
 

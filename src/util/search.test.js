@@ -1,11 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { AreaCode } from '../types/area-codes'
 import { isMatch } from './search'
 
 describe('isMatch()', () => {
   it('matches on a literal code', () => {
     const q = 'abi'
-    const ac: AreaCode = {
+    const ac = {
       code: 'ABI',
       namesake: '*A*nhalt-*B**i*tterfeld',
       district: 'Anhalt-Bitterfeld',
@@ -19,7 +18,7 @@ describe('isMatch()', () => {
 
   it('matches on a literal namesake', () => {
     const q = 'Augsburg'
-    const ac: AreaCode = {
+    const ac = {
       code: 'A',
       namesake: 'Augsburg',
       district: 'Augsburg',
@@ -32,7 +31,7 @@ describe('isMatch()', () => {
 
   it('matches on partial namesake, lowercased', () => {
     const q = 'mün'
-    const ac: AreaCode = {
+    const ac = {
       code: 'A',
       namesake: 'München',
       district: 'München',
@@ -45,7 +44,7 @@ describe('isMatch()', () => {
 
   it('matches on a literal district', () => {
     const q = 'Greiz'
-    const ac: AreaCode = {
+    const ac = {
       code: 'ZR',
       namesake: 'Zeulenroda',
       district: 'Greiz',
@@ -59,7 +58,7 @@ describe('isMatch()', () => {
 
   it('matches diacritic-insensitive (ö -> oe)', () => {
     const q = 'loebau'
-    const ac: AreaCode = {
+    const ac = {
       code: 'ZI',
       namesake: 'Löbau-Zittau',
       district: 'Löbau-Zittau',
@@ -73,7 +72,7 @@ describe('isMatch()', () => {
 
   it('matches diacritic-insensitive (ü -> u)', () => {
     const q = 'munchen'
-    const ac: AreaCode = {
+    const ac = {
       code: 'M',
       namesake: 'München',
       district: 'München',
@@ -87,7 +86,7 @@ describe('isMatch()', () => {
 
   it('matches cleaned namesake (without *)', () => {
     const q = 'zell'
-    const ac: AreaCode = {
+    const ac = {
       code: 'ZEL',
       namesake: '*Zel*l',
       district: 'Cochem',

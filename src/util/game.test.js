@@ -12,12 +12,10 @@ import {
   answerQuestion,
   getResults,
 } from './game'
-import { AreaCode } from '../types/area-codes'
-import { Game } from '../types/game'
 
-import DATA from '../data/area-codes.json' assert { type: 'json' }
+import DATA from '../data/area-codes.json'
 
-const randomStr = (len: number) =>
+const randomStr = (len) =>
   randomBytes(Math.floor(len / 2)).toString('hex')
 const mockAreaCode = () => ({
   code: randomStr(3).toUpperCase(),
@@ -33,7 +31,7 @@ describe('matchers', () => {
 
 describe('hasStarted()', () => {
   it('returns true with valid date', () => {
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [],
@@ -54,7 +52,7 @@ describe('isDone()', () => {
     const ac1 = mockAreaCode()
     const ac2 = mockAreaCode()
 
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
@@ -76,7 +74,7 @@ describe('isDone()', () => {
     const ac3 = mockAreaCode()
 
     // 3 questions, only 2 answers
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
@@ -170,7 +168,7 @@ describe('getDataByDifficulty()', () => {
     const data = clone(DATA)
     const result = getDataByDifficulty(1, data)
     expect(
-      result.every((ac: AreaCode) => ac.code.length === 1),
+      result.every((ac) => ac.code.length === 1),
     ).toEqual(true)
   })
 
@@ -178,7 +176,7 @@ describe('getDataByDifficulty()', () => {
     const data = clone(DATA)
     const result = getDataByDifficulty(2, data)
     expect(
-      result.every((ac: AreaCode) => ac.code.length === 2),
+      result.every((ac) => ac.code.length === 2),
     ).toEqual(true)
   })
 
@@ -186,7 +184,7 @@ describe('getDataByDifficulty()', () => {
     const data = clone(DATA)
     const result = getDataByDifficulty(3, data)
     expect(
-      result.every((ac: AreaCode) => ac.code.length !== 1),
+      result.every((ac) => ac.code.length !== 1),
     ).toEqual(true)
   })
 })
@@ -199,7 +197,7 @@ describe('getCurrentQuestion()', () => {
     ].map(mockAreaCode)
 
     // 3 questions, 1 answer already available
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
@@ -229,7 +227,7 @@ describe('getLastAnswer()', () => {
     ].map(mockAreaCode)
 
     // 3 questions, 1 answer already available
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
@@ -261,7 +259,7 @@ describe('answerQuestion()', () => {
     ].map(mockAreaCode)
 
     // 3 questions, 1 answer already available
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
@@ -292,7 +290,7 @@ describe('getResults()', () => {
       1, 2, 3, 4, 5, 6, 7,
     ].map(mockAreaCode)
 
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [
@@ -320,7 +318,7 @@ describe('getResults()', () => {
       1, 2, 3, 4, 5, 6, 7,
     ].map(mockAreaCode)
 
-    const game: Game = {
+    const game = {
       startedAt: new Date(),
       difficulty: 1,
       questions: [

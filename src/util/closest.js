@@ -11,54 +11,35 @@ import {
   without,
 } from 'ramda'
 import levenshtein from 'js-levenshtein'
-import { AreaCode } from '../types/area-codes'
 import { clean } from './clean'
 
-export type Matcher = { f: MatcherFn; n: number }
-export type MatcherFn = (
-  x: AreaCode,
-  y: AreaCode,
-) => boolean
+export const findMatches = curry((matchers, xs, x) => {
+  const f = compose(
+    filter((y) => y.score !== undefined && y.score > 0),
+    map((y) => {
+      const r = (acc, { f, n }) => (f(x, y) ? acc + n : acc)
+      return { ...y, score: reduce(r, 0, matchers) }
+    }),
+    without([x]),
+  )
 
-export const findMatches = curry(
-  (matchers: Matcher[], xs: AreaCode[], x: AreaCode) => {
-    const f = compose(
-      filter(
-        (y: AreaCode) =>
-          y.score !== undefined && y.score > 0,
-      ),
-      map((y: AreaCode) => {
-        const r = (acc: number, { f, n }: Matcher) =>
-          f(x, y) ? acc + n : acc
-        return { ...y, score: reduce(r, 0, matchers) }
-      }),
-      without([x]),
-    )
-
-    return { ...x, matches: f(xs) }
-  },
-)
+  return { ...x, matches: f(xs) }
+})
 
 export const matchNamesakeOnHighPopulation =
-  (threshold: number) => (_a: AreaCode, b: AreaCode) => {
+  (threshold) => (_a, b) => {
     if (!b.population) return false
     return b.population >= threshold
   }
 
-export const matchNamesakeOnStartingWithCode = (
-  a: AreaCode,
-  b: AreaCode,
-) => {
+export const matchNamesakeOnStartingWithCode = (a, b) => {
   const code = clean(a.code)
   const namesake = clean(b.namesake)
 
   return namesake.startsWith(code)
 }
 
-export const matchNamesakeOnFirstLetterOfCode = (
-  a: AreaCode,
-  b: AreaCode,
-) => {
+export const matchNamesakeOnFirstLetterOfCode = (a, b) => {
   const code = clean(a.code)
   const namesake = clean(b.namesake)
 
@@ -66,8 +47,8 @@ export const matchNamesakeOnFirstLetterOfCode = (
 }
 
 export const matchNamesakeOnContainingCodeInOrder = (
-  a: AreaCode,
-  b: AreaCode,
+  a,
+  b,
 ) => {
   const letters = toLower(a.code).split('')
   const namesake = clean(b.namesake)
@@ -83,18 +64,18 @@ export const matchNamesakeOnContainingCodeInOrder = (
 }
 
 export const matchNamesakeOnContainingCodeNotInOrder = (
-  a: AreaCode,
-  b: AreaCode,
+  a,
+  b,
 ) => {
   const letters = toLower(a.code).split('')
   const namesake = clean(b.namesake)
 
-  const includedInNamesake = (letter: string) =>
+  const includedInNamesake = (letter) =>
     includes(letter, namesake)
   const bools = map(includedInNamesake, letters)
   return all(equals(true), bools)
 }
 
 export const matchNamesakeOnNamesakeLevenshtein =
-  (n: number) => (a: AreaCode, b: AreaCode) =>
+  (n) => (a, b) =>
     levenshtein(clean(a.namesake), clean(b.namesake)) <= n

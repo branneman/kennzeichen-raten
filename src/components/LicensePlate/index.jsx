@@ -1,9 +1,6 @@
 import './index.css'
 
-export default function LicensePlate(props: {
-  prefix: string
-  code: string
-}) {
+export default function LicensePlate(props) {
   const { prefix, code } = props
 
   return (

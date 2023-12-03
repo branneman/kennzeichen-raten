@@ -8,7 +8,7 @@ const ALPHABET_LETTERS = 'ABCDEFGHIJKLMOPQRSTUVWXYZ'
 const ALPHABET_DIGITS = '0123456789'
 
 // [A-ZÄÖÜ]{1,3} [A-Z]{1,2} [0-9]{2,4}
-export const randomLicensePlate = (prefix: string) => {
+export const randomLicensePlate = (prefix) => {
   const lettersLength = randomNumber(1, 2)
   const letters = randomString(
     lettersLength,

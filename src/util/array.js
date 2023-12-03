@@ -8,7 +8,7 @@ import {
 } from 'ramda'
 
 // Fisher–Yates shuffle
-export function shuffle<T>(xs: T[]) {
+export function shuffle(xs) {
   let currentIndex = xs.length
   let randomIndex
 

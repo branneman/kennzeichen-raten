@@ -8,11 +8,8 @@ import {
   slice,
   sort,
 } from 'ramda'
-import { AreaCode } from '../types/area-codes'
-import { Game, Difficulty } from '../types/game'
 import { randomLicensePlate } from './license-plate'
 import {
-  Matcher,
   findMatches,
   matchNamesakeOnHighPopulation,
   matchNamesakeOnStartingWithCode,
@@ -23,16 +20,16 @@ import {
 } from './closest'
 import { shuffle } from './array'
 
-import DATA from '../data/area-codes.json' assert { type: 'json' }
+import DATA from '../data/area-codes.json'
 
-const MATCHERS: { [key: string]: Matcher[] } = {
-  '1': [
+const MATCHERS = {
+  1: [
     { f: matchNamesakeOnNamesakeLevenshtein(10), n: 15 },
     { f: matchNamesakeOnHighPopulation(500_000), n: 10 },
     { f: matchNamesakeOnStartingWithCode, n: 10 },
     { f: matchNamesakeOnContainingCodeInOrder, n: 10 },
   ],
-  '2': [
+  2: [
     { f: matchNamesakeOnStartingWithCode, n: 15 },
     { f: matchNamesakeOnNamesakeLevenshtein(5), n: 10 },
     { f: matchNamesakeOnContainingCodeInOrder, n: 10 },
@@ -40,7 +37,7 @@ const MATCHERS: { [key: string]: Matcher[] } = {
     { f: matchNamesakeOnFirstLetterOfCode, n: 5 },
     { f: matchNamesakeOnContainingCodeNotInOrder, n: 5 },
   ],
-  '3': [
+  3: [
     { f: matchNamesakeOnStartingWithCode, n: 15 },
     { f: matchNamesakeOnFirstLetterOfCode, n: 15 },
     { f: matchNamesakeOnContainingCodeInOrder, n: 15 },
@@ -50,15 +47,14 @@ const MATCHERS: { [key: string]: Matcher[] } = {
   ],
 }
 
-export const hasStarted = (game: Game | null) =>
-  game !== null
+export const hasStarted = (game) => game !== null
 
-export const isDone = (game: Game | null) => {
+export const isDone = (game) => {
   if (game === null) return false
   return game.questions.length === game.answers.length
 }
 
-export const difficultyStr2Int = (str: string) => {
+export const difficultyStr2Int = (str) => {
   const i = {
     easy: 1,
     medium: 2,
@@ -68,13 +64,11 @@ export const difficultyStr2Int = (str: string) => {
   return i
 }
 
-export const generateNewGameState = (
-  difficulty: Difficulty,
-): Game => {
-  const amount: number = {
-    '1': 10,
-    '2': 20,
-    '3': 20,
+export const generateNewGameState = (difficulty) => {
+  const amount = {
+    1: 10,
+    2: 20,
+    3: 20,
   }[difficulty]
   const data = getDataByDifficulty(difficulty, clone(DATA))
   const questions = slice(0, amount, shuffle(data))
@@ -95,15 +89,12 @@ export const generateNewGameState = (
 }
 
 const rawQuestion2gameQuestion =
-  (difficulty: Difficulty) => (question: AreaCode) => {
+  (difficulty) => (question) => {
     const getChoices = pipe(
       findMatches(MATCHERS[String(difficulty)], DATA),
-      prop('matches') as () => AreaCode[],
-      sort(
-        (a: AreaCode, z: AreaCode) =>
-          (z.score as number) - (a.score as number),
-      ),
-      slice(0, 2) as (a: AreaCode[]) => AreaCode[],
+      prop('matches'),
+      sort((a, z) => z.score - a.score),
+      slice(0, 2),
       append(question),
       shuffle,
     )
@@ -112,55 +103,34 @@ const rawQuestion2gameQuestion =
 
     return {
       question: { ...question, plate },
-      choices: getChoices(question) as AreaCode[],
+      choices: getChoices(question),
     }
   }
 
-export const getDataByDifficulty = (
-  difficulty: Difficulty,
-  data: AreaCode[],
-): AreaCode[] => {
+export const getDataByDifficulty = (difficulty, data) => {
   if (difficulty === 1) {
-    return filter(
-      (ac: AreaCode) => ac.code.length === 1,
-      data,
-    )
+    return filter((ac) => ac.code.length === 1, data)
   }
   if (difficulty === 2) {
-    return filter(
-      (ac: AreaCode) => ac.code.length === 2,
-      data,
-    )
+    return filter((ac) => ac.code.length === 2, data)
   }
   if (difficulty === 3) {
-    return filter(
-      (ac: AreaCode) => ac.code.length !== 1,
-      data,
-    )
+    return filter((ac) => ac.code.length !== 1, data)
   }
   return data
 }
 
-export const getCurrentQuestion = (
-  game: Game,
-): { question: AreaCode; choices: AreaCode[] } => {
+export const getCurrentQuestion = (game) => {
   return game.questions[game.answers.length]
 }
 
-export const getLastAnswer = (
-  game: Game,
-): {
-  question: AreaCode
-  choices: AreaCode[]
-  answer: AreaCode
-  isCorrect: boolean
-} => {
+export const getLastAnswer = (game) => {
   const { question, answer, isCorrect } =
     game.answers[game.answers.length - 1]
 
   const { choices } = game.questions.find(
     (ac) => ac.question.code === question.code,
-  ) as { question: AreaCode; choices: AreaCode[] }
+  )
 
   return {
     question,
@@ -170,11 +140,7 @@ export const getLastAnswer = (
   }
 }
 
-export const answerQuestion = (
-  game: Game,
-  question: AreaCode,
-  answer: AreaCode,
-): Game => {
+export const answerQuestion = (game, question, answer) => {
   const isCorrect = question.code === answer.code
 
   const answers = game.answers.slice() // clone array
@@ -183,16 +149,8 @@ export const answerQuestion = (
   return { ...game, answers }
 }
 
-export const getResults = (
-  game: Game,
-): {
-  percentage: number
-  correct: number
-  incorrect: number
-} => {
-  const count = (
-    f: (a: { isCorrect: boolean }) => boolean,
-  ) => game.answers.filter(f).length
+export const getResults = (game) => {
+  const count = (f) => game.answers.filter(f).length
 
   const correct = count((a) => a.isCorrect)
   const incorrect = count((a) => !a.isCorrect)

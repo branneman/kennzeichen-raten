@@ -1,4 +1,4 @@
-export const splitByBoldStar = (s: string) => {
+export const splitByBoldStar = (s) => {
   const xs = []
 
   let i = 0

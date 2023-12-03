@@ -8,8 +8,6 @@ import {
   formatNamesake,
   namesakeEqualsDistrict,
 } from '../../../util/clean'
-import { AreaCode } from '../../../types/area-codes'
-import { Game } from '../../../types/game'
 import {
   hasStarted,
   isDone,
@@ -25,9 +23,7 @@ import './index.css'
 export default function PlayGame() {
   const { t } = useTranslation()
 
-  const [gameState, setGameState] = useState<Game | null>(
-    null,
-  )
+  const [gameState, setGameState] = useState(null)
   const [showingQuestion, setShowingQuestion] =
     useState(true)
   const { difficulty: difficultyStr } = useParams()
@@ -35,14 +31,14 @@ export default function PlayGame() {
   if (!hasStarted(gameState)) {
     setGameState(
       generateNewGameState(
-        difficultyStr2Int(difficultyStr as string),
+        difficultyStr2Int(difficultyStr),
       ),
     )
     return null // rerender
   }
 
   if (isDone(gameState) && showingQuestion) {
-    const results = getResults(gameState!)
+    const results = getResults(gameState)
     return (
       <div className="game-play__results">
         <h2>{t('pages.Game.Results.title')}</h2>
@@ -79,28 +75,25 @@ export default function PlayGame() {
     )
   }
 
-  const addAnswerToGameState = (
-    q: AreaCode,
-    a: AreaCode,
-  ) => {
+  const addAnswerToGameState = (q, a) => {
     setShowingQuestion(false)
-    setGameState(answerQuestion(gameState!, q, a))
+    setGameState(answerQuestion(gameState, q, a))
     setTimeout(() => setShowingQuestion(true), 2000)
   }
 
-  let questionNumber: number = 1 + gameState!.answers.length
+  let questionNumber = 1 + gameState.answers.length
 
-  let question: AreaCode
-  let choices: AreaCode[]
-  let isCorrect: boolean = false
+  let question
+  let choices
+  let isCorrect = false
 
   if (showingQuestion) {
-    const q = getCurrentQuestion(gameState!)
+    const q = getCurrentQuestion(gameState)
     question = q.question
     choices = q.choices
   } else {
     questionNumber -= 1
-    const q = getLastAnswer(gameState!)
+    const q = getLastAnswer(gameState)
     question = q.question
     choices = q.choices
     isCorrect = q.isCorrect
@@ -112,13 +105,13 @@ export default function PlayGame() {
         &raquo; {t('pages.Game.Play.question-#')}{' '}
         {questionNumber}{' '}
         {t('pages.Game.Play.question-#-from')}{' '}
-        {gameState!.questions.length}
+        {gameState.questions.length}
       </p>
 
       <h2>{t('pages.Game.Play.license-plate')}:</h2>
       <LicensePlate
         prefix={question.code}
-        code={question.plate as string}
+        code={question.plate}
       />
 
       <h2>{t('pages.Game.Play.question')}</h2>

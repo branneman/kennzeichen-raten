@@ -6,16 +6,10 @@ import { generateNewGameState } from '../../util/game'
 import {
   formatNamesake,
   namesakeEqualsDistrict,
-} from '../../util/clean.ts'
-import { AreaCode } from '../../types/area-codes'
+} from '../../util/clean'
 import './index.css'
 
-const generateAllQuestions = (): {
-  [key: string]: {
-    question: AreaCode
-    choices: AreaCode[]
-  }[]
-} => ({
+const generateAllQuestions = () => ({
   easy: generateNewGameState(1).questions,
   medium: generateNewGameState(2).questions,
   hard: generateNewGameState(3).questions,
@@ -55,12 +49,7 @@ export default function Debug() {
   )
 }
 
-function AreaCodeBlock(props: {
-  areacode: {
-    question: AreaCode
-    choices: AreaCode[]
-  }
-}) {
+function AreaCodeBlock(props) {
   const ac = props.areacode
 
   return (
@@ -70,7 +59,7 @@ function AreaCodeBlock(props: {
         .filter(
           (choice) => ac.question.code !== choice.code,
         )
-        .map((choice: AreaCode) => (
+        .map((choice) => (
           <AreaCodeParagraph
             key={choice.code}
             areacode={{ ...choice, code: '' }}
@@ -80,7 +69,7 @@ function AreaCodeBlock(props: {
   )
 }
 
-function AreaCodeParagraph(props: { areacode: AreaCode }) {
+function AreaCodeParagraph(props) {
   const ac = props.areacode
 
   return (

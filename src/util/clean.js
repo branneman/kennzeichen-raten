@@ -20,16 +20,14 @@ const GERMAN_DIACRITICS_REMOVE = new Map([
   ['ü', 'u'],
 ])
 
-export const clean = (s: string) =>
-  toLower(s.replace(/\*/g, ''))
+export const clean = (s) => toLower(s.replace(/\*/g, ''))
 
 // Remove namesake highlighting
 //  (e.g. because it would be a hint otherwise)
-export const formatNamesake = (s: string) =>
-  s.replace(/\*/g, '')
+export const formatNamesake = (s) => s.replace(/\*/g, '')
 
-export const replaceDiacritics = (s: string) => {
-  const f = (char: string) =>
+export const replaceDiacritics = (s) => {
+  const f = (char) =>
     GERMAN_DIACRITICS_REPLACE.has(char)
       ? GERMAN_DIACRITICS_REPLACE.get(char)
       : char
@@ -39,8 +37,8 @@ export const replaceDiacritics = (s: string) => {
   return array2str(map(f, str2array(s)))
 }
 
-export const removeDiacritics = (s: string) => {
-  const f = (char: string) =>
+export const removeDiacritics = (s) => {
+  const f = (char) =>
     GERMAN_DIACRITICS_REMOVE.has(char)
       ? GERMAN_DIACRITICS_REMOVE.get(char)
       : char
@@ -51,8 +49,8 @@ export const removeDiacritics = (s: string) => {
 }
 
 export const namesakeEqualsDistrict = (
-  namesake: string,
-  district: string,
+  namesake,
+  district,
 ) => {
   const s1 = replaceDiacritics(clean(namesake))
   const s2 = replaceDiacritics(clean(district))

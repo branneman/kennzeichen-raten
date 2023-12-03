@@ -16,7 +16,7 @@ img.src = '/kennzeichen-raten/img/bg.jpg'
 
 function runReactApp() {
   ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement,
+    document.getElementById('root'),
   ).render(
     <React.StrictMode>
       <HashRouter>

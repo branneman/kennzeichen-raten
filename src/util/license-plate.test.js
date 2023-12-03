@@ -3,7 +3,7 @@ import { randomString, randomNumber } from './random'
 import { randomLicensePlate } from './license-plate'
 
 describe('randomLicensePlate()', () => {
-  const run = (n: number, f: () => void) => {
+  const run = (n, f) => {
     for (let i = 0; i < n; i++) f()
   }
 

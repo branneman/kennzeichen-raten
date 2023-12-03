@@ -3,7 +3,7 @@ import { deepStrictEqual } from 'assert'
 import { permutations } from '../util/array'
 import { isPOJO, walkObjectLeafNodes } from '../util/object'
 
-import translations from './translations.json' assert { type: 'json' }
+import translations from './translations.json'
 const languages = Object.keys(translations).filter(
   (key) => key !== 'defaultLanguage',
 )
@@ -66,7 +66,7 @@ describe('data/translations.json', () => {
         walkTwo(
           translations[language1],
           translations[language2],
-          '',
+          `[${language1},${language2}]`,
         )
       },
     )

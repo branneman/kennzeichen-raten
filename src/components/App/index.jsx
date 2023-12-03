@@ -10,7 +10,7 @@ import {
   createTranslationContext,
   createTranslationState,
 } from '../../hooks/translation'
-import translations from '../../data/translations.json' assert { type: 'json' }
+import translations from '../../data/translations.json'
 import { useKeySequenceDetector } from '../../hooks/dom'
 import './index.css'
 
@@ -23,16 +23,16 @@ export default function App() {
   useKeySequenceDetector('debug', () => navigate('/debug'))
   const isDebugRoute = useLocation().pathname === '/debug'
 
-  const refLoaderCover = useRef<HTMLDivElement>(null)
-  const refMain = useRef<HTMLDivElement>(null)
+  const refLoaderCover = useRef(null)
+  const refMain = useRef(null)
   useEffect(() => {
     setTimeout(
-      () => refMain.current!.classList.remove('hidden'),
+      () => refMain.current.classList.remove('hidden'),
       500,
     )
   })
   const onAnimationEnd = () => {
-    refLoaderCover.current!.remove()
+    refLoaderCover.current.remove()
   }
 
   return (

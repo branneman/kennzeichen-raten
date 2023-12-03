@@ -2,20 +2,19 @@ import { useState } from 'react'
 import { filter } from 'ramda'
 
 import { useTranslation } from '../../hooks/translation'
-import { AreaCode } from '../../types/area-codes'
 import { namesakeEqualsDistrict } from '../../util/clean'
 import { isMatch } from '../../util/search'
 import { splitByBoldStar } from '../../util/string'
 import Namesake from '../../components/Namesake'
 import './index.css'
 
-import areaCodes from '../../data/area-codes.json' assert { type: 'json' }
+import areaCodes from '../../data/area-codes.json'
 
 export default function Database() {
   const { t } = useTranslation()
   const [query, setQuery] = useState('')
 
-  const results: AreaCode[] =
+  const results =
     query === ''
       ? areaCodes
       : filter(isMatch(query), areaCodes)

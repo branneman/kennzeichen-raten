@@ -19,9 +19,8 @@ describe('walkObjectLeafNodes()', () => {
       },
     }
 
-    const result: [string, unknown] = []
-    const fn = (key: string, value: unknown) =>
-      result.push([key, value])
+    const result = []
+    const fn = (key, value) => result.push([key, value])
     walkObjectLeafNodes(obj, fn)
 
     expect(result).toEqual([

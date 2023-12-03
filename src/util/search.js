@@ -4,12 +4,11 @@ import {
   replaceDiacritics,
   removeDiacritics,
 } from './clean'
-import { AreaCode } from '../types/area-codes'
 
-export function isMatch(query: string) {
+export function isMatch(query) {
   const q = toLower(query)
 
-  return (ac: AreaCode): boolean => {
+  return (ac) => {
     return (
       clean(ac.code) === q ||
       clean(ac.namesake).includes(q) ||

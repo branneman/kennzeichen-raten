@@ -8,7 +8,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
-    'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
   ignorePatterns: ['playground', 'dist', '.eslintrc.cjs'],
@@ -26,16 +25,16 @@ module.exports = {
       },
     },
   ],
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'react', 'react-refresh'],
+  plugins: ['react', 'react-refresh'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
+    'react/prop-types': 'off',
   },
 }
