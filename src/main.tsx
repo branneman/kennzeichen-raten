@@ -11,9 +11,7 @@ import PlayGame from './pages/Game/Play'
 
 // Preload background image
 const img = new Image()
-img.onload = function () {
-  runReactApp()
-}
+img.onload = () => runReactApp()
 img.src = '/kennzeichen-raten/img/bg.jpg'
 
 function runReactApp() {
