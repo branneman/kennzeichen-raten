@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 
 import Button from '../../../components/Button'
 import LicensePlate from '../../../components/LicensePlate'
+import { useTranslation } from '../../../hooks/translation'
 import {
   formatNamesake,
   namesakeEqualsDistrict,
@@ -22,6 +23,8 @@ import {
 import './index.css'
 
 export default function PlayGame() {
+  const { t } = useTranslation()
+
   const [gameState, setGameState] = useState<Game | null>(
     null,
   )
@@ -42,23 +45,35 @@ export default function PlayGame() {
     const results = getResults(gameState!)
     return (
       <div className="game-play__results">
-        <h2>Results</h2>
+        <h2>{t('pages.Game.Results.title')}</h2>
         <p>
-          Your score:{' '}
-          <strong>{results.percentage}% correct</strong>
+          {t('pages.Game.Results.your-score')}:{' '}
+          <strong>
+            {results.percentage}%{' '}
+            {t('pages.Game.Results.correct')}
+          </strong>
         </p>
-        <p>Difficulty level: {difficultyStr}</p>
         <p>
-          Correct answers: {results.correct}
+          {t('pages.Game.Results.difficulty')}:{' '}
+          {difficultyStr}
+        </p>
+        <p>
+          {t('pages.Game.Results.correct-#')}:{' '}
+          {results.correct}
           <br />
-          Incorrect answers: {results.incorrect}
+          {t('pages.Game.Results.incorrect-#')}:{' '}
+          {results.incorrect}
         </p>
         <hr />
         <Link to="/play">
-          <Button>Play again</Button>
+          <Button>
+            {t('pages.Game.Results.play-again')}
+          </Button>
         </Link>
         <Link to="/">
-          <Button>Home</Button>
+          <Button>
+            {t('pages.Game.Results.back-home')}
+          </Button>
         </Link>
       </div>
     )
@@ -94,17 +109,19 @@ export default function PlayGame() {
   return (
     <>
       <p className="game-play__qxofy">
-        &raquo; Question {questionNumber} from{' '}
+        &raquo; {t('pages.Game.Play.question-#')}{' '}
+        {questionNumber}{' '}
+        {t('pages.Game.Play.question-#-from')}{' '}
         {gameState!.questions.length}
       </p>
 
-      <h2>This license plate:</h2>
+      <h2>{t('pages.Game.Play.license-plate')}:</h2>
       <LicensePlate
         prefix={question.code}
         code={question.plate as string}
       />
 
-      <h2>Where is it from?</h2>
+      <h2>{t('pages.Game.Play.question')}</h2>
       {showingQuestion ? (
         <ol className="game-play__answerlist">
           {choices.map((choice, idx) => (
@@ -132,14 +149,14 @@ export default function PlayGame() {
       ) : isCorrect === true ? (
         <>
           <div className="game-play__answer--correct">
-            ✅ Correct
+            ✅ {t('pages.Game.Play.correct')}
           </div>
           <div className="game-play__loader"></div>
         </>
       ) : (
         <>
           <div className="game-play__answer--incorrect">
-            ❌ Incorrect
+            ❌ {t('pages.Game.Play.incorrect')}
           </div>
           <div className="game-play__loader"></div>
         </>

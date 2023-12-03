@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { filter } from 'ramda'
 
+import { useTranslation } from '../../hooks/translation'
 import { AreaCode } from '../../types/area-codes'
 import { namesakeEqualsDistrict } from '../../util/clean'
 import { isMatch } from '../../util/search'
@@ -11,6 +12,7 @@ import './index.css'
 import areaCodes from '../../data/area-codes.json' assert { type: 'json' }
 
 export default function Database() {
+  const { t } = useTranslation()
   const [query, setQuery] = useState('')
 
   const results: AreaCode[] =
@@ -20,9 +22,11 @@ export default function Database() {
 
   return (
     <>
-      <h2>Database</h2>
+      <h2>{t('pages.Database.title')}</h2>
       <div className="database__search">
-        <label htmlFor="query">Search:</label>
+        <label htmlFor="query">
+          {t('pages.Database.search-label')}:
+        </label>
         <input
           id="query"
           type="search"

@@ -1,23 +1,26 @@
 import { Link } from 'react-router-dom'
 import Button from '../../../components/Button'
+import { useTranslation } from '../../../hooks/translation'
 import './index.css'
 
-const LEVELS = [
-  ['easy', 'Easy'],
-  ['medium', 'Medium'],
-  ['hard', 'Hard'],
-]
+const LEVELS = ['easy', 'medium', 'hard']
 
 export default function ChooseDifficulty() {
+  const { t } = useTranslation()
+
   return (
     <>
-      <h2>Play Game</h2>
-      <p>Choose difficulty:</p>
+      <h2>{t('pages.Game.ChooseDifficulty.title')}</h2>
+      <p>{t('pages.Game.ChooseDifficulty.description')}</p>
       <ol className="menu">
-        {LEVELS.map(([key, title]) => (
-          <li key={key} className="menu__item">
-            <Link to={`/play/${key}`}>
-              <Button>{title}</Button>
+        {LEVELS.map((level) => (
+          <li key={level} className="menu__item">
+            <Link to={`/play/${level}`}>
+              <Button>
+                {t(
+                  `pages.Game.ChooseDifficulty.difficulty-${level}`,
+                )}
+              </Button>
             </Link>
           </li>
         ))}

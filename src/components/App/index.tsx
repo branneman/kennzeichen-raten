@@ -6,10 +6,19 @@ import {
 } from 'react-router-dom'
 
 import Header from '../Header'
-import { useKeySequenceDetector } from '../../util/dom'
+import {
+  createTranslationContext,
+  createTranslationState,
+} from '../../hooks/translation'
+import translations from '../../data/translations.json' assert { type: 'json' }
+import { useKeySequenceDetector } from '../../hooks/dom'
 import './index.css'
 
 export default function App() {
+  const TranslationContext = createTranslationContext()
+  const translationState =
+    createTranslationState(translations)
+
   const navigate = useNavigate()
   useKeySequenceDetector('debug', () => navigate('/debug'))
   const isDebugRoute = useLocation().pathname === '/debug'
@@ -27,7 +36,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <TranslationContext.Provider value={translationState}>
       <div className="background" />
       <div
         ref={refLoaderCover}
@@ -44,6 +53,6 @@ export default function App() {
           <Outlet />
         </>
       </div>
-    </>
+    </TranslationContext.Provider>
   )
 }

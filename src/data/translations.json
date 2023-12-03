@@ -1,0 +1,53 @@
+{
+  "defaultLanguage": "en",
+  "de": {},
+  "en": {
+    "components": {
+      "Header": {
+        "switch-language": "Deutsch"
+      },
+      "Howto": {
+        "title": "German license plates",
+        "description": "The first 1-3 letters (before the green seal) are the district code.",
+        "m-for-munchen": "M stands for München"
+      }
+    },
+    "pages": {
+      "Home": {
+        "play-the-game": "Play the game",
+        "explore-the-database": "Explore the database"
+      },
+      "Game": {
+        "ChooseDifficulty": {
+          "title": "Play Game",
+          "description": "Choose difficulty",
+          "difficulty-easy": "Easy",
+          "difficulty-medium": "Medium",
+          "difficulty-hard": "Hard"
+        },
+        "Play": {
+          "question-#": "Question",
+          "question-#-from": "from",
+          "license-plate": "This license plate",
+          "question": "Where is it from?",
+          "correct": "Correct",
+          "incorrect": "Incorrect"
+        },
+        "Results": {
+          "title": "Results",
+          "your-score": "Your score",
+          "correct": "correct",
+          "difficulty": "Difficulty level",
+          "correct-#": "Correct answers",
+          "incorrect-#": "Incorrect answers",
+          "play-again": "Play again",
+          "back-home": "Home"
+        }
+      },
+      "Database": {
+        "title": "Database",
+        "search-label": "Search"
+      }
+    }
+  }
+}
