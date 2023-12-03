@@ -1,6 +1,54 @@
 {
   "defaultLanguage": "en",
-  "de": {},
+  "de": {
+    "components": {
+      "Header": {
+        "switch-language": ""
+      },
+      "Howto": {
+        "title": "",
+        "description": "",
+        "m-for-munchen": ""
+      }
+    },
+    "pages": {
+      "Home": {
+        "play-the-game": "",
+        "explore-the-database": ""
+      },
+      "Game": {
+        "ChooseDifficulty": {
+          "title": "",
+          "description": "",
+          "difficulty-easy": "",
+          "difficulty-medium": "",
+          "difficulty-hard": ""
+        },
+        "Play": {
+          "question-#": "",
+          "question-#-from": "",
+          "license-plate": "",
+          "question": "",
+          "correct": "",
+          "incorrect": ""
+        },
+        "Results": {
+          "title": "",
+          "your-score": "",
+          "correct": "",
+          "difficulty": "",
+          "correct-#": "",
+          "incorrect-#": "",
+          "play-again": "",
+          "back-home": ""
+        }
+      },
+      "Database": {
+        "title": "",
+        "search-label": ""
+      }
+    }
+  },
   "en": {
     "components": {
       "Header": {

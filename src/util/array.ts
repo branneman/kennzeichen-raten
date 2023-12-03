@@ -1,3 +1,12 @@
+import {
+  addIndex,
+  chain,
+  remove,
+  compose,
+  map,
+  append,
+} from 'ramda'
+
 // Fisher–Yates shuffle
 export function shuffle<T>(xs: T[]) {
   let currentIndex = xs.length
@@ -18,3 +27,16 @@ export function shuffle<T>(xs: T[]) {
 
   return xs
 }
+
+export const permutations = (n, tokens, subperms = [[]]) =>
+  n < 1 || n > tokens.length
+    ? subperms
+    : addIndex(chain)(
+        (token, idx) =>
+          permutations(
+            n - 1,
+            remove(idx, 1, tokens),
+            compose(map, append)(token)(subperms),
+          ),
+        tokens,
+      )
