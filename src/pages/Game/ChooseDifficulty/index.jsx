@@ -11,7 +11,7 @@ export default function ChooseDifficulty() {
   return (
     <>
       <h2>{t('pages.Game.ChooseDifficulty.title')}</h2>
-      <p>{t('pages.Game.ChooseDifficulty.description')}</p>
+      <p>{t('pages.Game.ChooseDifficulty.description')}:</p>
       <ol className="menu">
         {LEVELS.map((level) => (
           <li key={level} className="menu__item">
