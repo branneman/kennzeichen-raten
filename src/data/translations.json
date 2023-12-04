@@ -1,58 +1,58 @@
 {
-  "defaultLanguage": "en",
+  "defaultLanguage": "de",
   "de": {
     "components": {
       "Header": {
-        "switch-language": ""
+        "switch-language": "Set language to English"
       },
       "Howto": {
-        "title": "",
-        "description": "",
-        "m-for-munchen": ""
+        "title": "Deutsches Kfz-Kennzeichen",
+        "description": "Die ersten 1-3 Buchstaben (vor dem grünen Siegel) sind der Landkreis.",
+        "m-for-munchen": "M bedeutet München"
       }
     },
     "pages": {
       "Home": {
-        "play-the-game": "",
-        "explore-the-database": ""
+        "play-the-game": "Das Spiel spielen",
+        "explore-the-database": "Datenbank erkunden"
       },
       "Game": {
         "ChooseDifficulty": {
-          "title": "",
-          "description": "",
-          "difficulty-easy": "",
-          "difficulty-medium": "",
-          "difficulty-hard": ""
+          "title": "Spielen",
+          "description": "Schwierigkeitsgrad wählen",
+          "difficulty-easy": "Einfach",
+          "difficulty-medium": "Mittel",
+          "difficulty-hard": "Schwer"
         },
         "Play": {
-          "question-#": "",
-          "question-#-from": "",
-          "license-plate": "",
-          "question": "",
-          "correct": "",
-          "incorrect": ""
+          "question-#": "Frage",
+          "question-#-from": "von",
+          "license-plate": "Dieses Kennzeichen",
+          "question": "Wo kommt es her?",
+          "correct": "Richtig",
+          "incorrect": "Falsch"
         },
         "Results": {
-          "title": "",
-          "your-score": "",
-          "correct": "",
-          "difficulty": "",
-          "correct-#": "",
-          "incorrect-#": "",
-          "play-again": "",
-          "back-home": ""
+          "title": "Resultate",
+          "your-score": "Ihr Ergebnis",
+          "correct": "Richtig",
+          "difficulty": "Schwierigkeitsgrad",
+          "correct-#": "Richtige Antworten",
+          "incorrect-#": "Falsche Antworten",
+          "play-again": "Nochmal spielen",
+          "back-home": "Startseite"
         }
       },
       "Database": {
-        "title": "",
-        "search-label": ""
+        "title": "Datenbank",
+        "search-label": "Suchen"
       }
     }
   },
   "en": {
     "components": {
       "Header": {
-        "switch-language": "Deutsch"
+        "switch-language": "Sprache auf Deutsch einstellen"
       },
       "Howto": {
         "title": "German license plates",
@@ -67,7 +67,7 @@
       },
       "Game": {
         "ChooseDifficulty": {
-          "title": "Play Game",
+          "title": "Play",
           "description": "Choose difficulty",
           "difficulty-easy": "Easy",
           "difficulty-medium": "Medium",
