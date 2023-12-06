@@ -24,40 +24,56 @@ describe('data/translations.json', () => {
     // Using assert.deepStrictEqual because it supports a message,
     //  printing a path on failure is critical to find the problem.
 
-    const walkTwo = (obj1, obj2, path) => {
+    const walkTwo = (obj1, obj2, debug) => {
+      const debugPrefix = `walkTwo(${debug.obj1}, ${debug.obj2}) at path '${debug.path}': `
+
       deepStrictEqual(
-        true,
         isPOJO(obj1),
-        `At path '${path}': obj1 is not POJO`,
+        true,
+        `${debugPrefix}'${debug.obj1}' is not POJO`,
       )
       deepStrictEqual(
-        true,
         isPOJO(obj2),
-        `At path '${path}': obj2 is not POJO`,
+        true,
+        `${debugPrefix}'${debug.obj2}' is not POJO`,
       )
 
       deepStrictEqual(
         Object.keys(obj1).length,
         Object.keys(obj2).length,
-        `At path '${path}': keys of obj1 and obj2 are not of the same length`,
+        `${debugPrefix}Not the same amount of properties in '${debug.obj1}' and '${debug.obj2}'`,
       )
 
       Object.keys(obj1).forEach((key) => {
         deepStrictEqual(
-          true,
           key in obj2,
-          `At path '${path}': '${key}' not found in obj2`,
+          true,
+          `${debugPrefix}'${key}' not found in '${debug.obj2}'`,
         )
 
         if (!isPOJO(obj1[key])) return
 
         deepStrictEqual(
-          true,
           isPOJO(obj2[key]),
-          `At path '${path}': obj2['${key}'] is not POJO`,
+          true,
+          `${debugPrefix}'${key}' is not POJO`,
+        )
+        deepStrictEqual(
+          Object.keys(obj1[key]).length !== 0,
+          true,
+          `${debugPrefix}'${key}' is empty POJO`,
+        )
+        deepStrictEqual(
+          Object.keys(obj2[key]).length !== 0,
+          true,
+          `${debugPrefix}'${key}' is empty POJO`,
         )
 
-        walkTwo(obj1[key], obj2[key], path + `.${key}`)
+        const newDebug = {
+          ...debug,
+          path: debug.path + `.${key}`,
+        }
+        walkTwo(obj1[key], obj2[key], newDebug)
       })
     }
 
@@ -66,7 +82,11 @@ describe('data/translations.json', () => {
         walkTwo(
           translations[language1],
           translations[language2],
-          `[${language1},${language2}]`,
+          {
+            obj1: language1,
+            obj2: language2,
+            path: language1,
+          },
         )
       },
     )
