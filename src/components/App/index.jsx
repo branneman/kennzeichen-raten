@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   useNavigate,
   useLocation,
@@ -6,18 +6,19 @@ import {
 } from 'react-router-dom'
 
 import Header from '../Header'
-import {
-  createTranslationContext,
-  createTranslationState,
-} from '../../hooks/translation'
+import { makeTranslationValue } from '../../hooks/translation'
+import { TranslationContext } from '../../context/translation'
 import translations from '../../data/translations.json'
 import { useKeySequenceDetector } from '../../hooks/dom'
 import './index.css'
 
 export default function App() {
-  const TranslationContext = createTranslationContext()
-  const translationState =
-    createTranslationState(translations)
+  const [language, setLanguage] = useState('de')
+  const translationContextValue = makeTranslationValue(
+    translations,
+    language,
+    setLanguage,
+  )
 
   const navigate = useNavigate()
   useKeySequenceDetector('debug', () => navigate('/debug'))
@@ -31,12 +32,13 @@ export default function App() {
       500,
     )
   })
-  const onAnimationEnd = () => {
+  const onAnimationEnd = () =>
     refLoaderCover.current.remove()
-  }
 
   return (
-    <TranslationContext.Provider value={translationState}>
+    <TranslationContext.Provider
+      value={translationContextValue}
+    >
       <div className="background" />
       <div
         ref={refLoaderCover}

@@ -1,33 +1,20 @@
-import { createContext, useContext, useState } from 'react'
+import { useContext } from 'react'
+import { TranslationContext } from '../../context/translation'
 
-export const createTranslationState = (translations) => {
-  const [language, setLanguage] = useState(
-    translations.defaultLanguage,
-  )
+export function useTranslation() {
+  return useContext(TranslationContext)
+}
+
+export const makeTranslationValue = (
+  translations,
+  language,
+  setLanguage,
+) => {
   return {
     t: makeTranslateFunction(translations, language),
     language,
     setLanguage,
   }
-}
-
-const defaultContext = {
-  defaultLanguage: 'en',
-  en: { key1: 'value1' },
-}
-let TranslationContext
-export const createTranslationContext = () => {
-  if (TranslationContext !== undefined)
-    return TranslationContext
-
-  TranslationContext = createContext(
-    createTranslationState(defaultContext),
-  )
-  return TranslationContext
-}
-
-export function useTranslation() {
-  return useContext(TranslationContext)
 }
 
 export function makeTranslateFunction(

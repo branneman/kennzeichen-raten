@@ -10,7 +10,7 @@
     "dev": "NODE_NO_WARNINGS=1 stmux -w always -n -M -- [ \"vite\" .. \"vitest src\" ]",
     "build": "npm run lint && vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
+    "preview": "npm run build && vite preview",
     "deploy": "npm version minor -m \"chore: Release version %s\" && npm run build && gh-pages -d dist"
   },
   "dependencies": {
