@@ -1,7 +1,7 @@
 {
   "name": "kennzeichen-raten",
   "private": true,
-  "version": "1.8.0",
+  "version": "1.9.0",
   "author": "Bran van der Meer <bran.van.der.meer@protonmail.com>",
   "license": "ISC",
   "type": "module",
