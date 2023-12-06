@@ -12,12 +12,15 @@ export default function Header() {
       <h1>
         <Link to={`/`}>Kennzeichen-Raten</Link>
       </h1>
-      <p
-        className="header__switchlanguage"
-        onClick={() => setLanguage(otherLanguage)}
-      >
-        {t('components.Header.switch-language')}
-      </p>
+      <div className="header__nav">
+        <Link to={`/`}>{t('components.Header.home')}</Link>
+        <p
+          className="header__switchlanguage"
+          onClick={() => setLanguage(otherLanguage)}
+        >
+          {t('components.Header.switch-language')}
+        </p>
+      </div>
     </header>
   )
 }

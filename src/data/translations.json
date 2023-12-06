@@ -3,6 +3,7 @@
   "de": {
     "components": {
       "Header": {
+        "home": "Startseite",
         "switch-language": "Set language to English"
       },
       "Howto": {
@@ -52,6 +53,7 @@
   "en": {
     "components": {
       "Header": {
+        "home": "Home",
         "switch-language": "Sprache auf Deutsch einstellen"
       },
       "Howto": {

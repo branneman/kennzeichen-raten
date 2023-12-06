@@ -13,10 +13,28 @@
   text-decoration: none;
 }
 
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em 0;
+}
+.header__nav > * {
+  margin: 0;
+}
+
+.header__nav a {
+  padding: 0.2em 0 0 2em;
+  background-image: url('/kennzeichen-raten/img/home.svg');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  font-size: smaller;
+  color: #fff;
+  text-decoration: none;
+}
+
 .header__switchlanguage {
   min-height: 20px;
-  margin: 0.5em 0;
-  padding: 0.25em 0 0 2em;
+  padding: 0.2em 0 0 2em;
   cursor: pointer;
   font-size: smaller;
   background-image: url('/kennzeichen-raten/img/language.svg');
