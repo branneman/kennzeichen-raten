@@ -7,9 +7,12 @@
   "type": "module",
   "scripts": {
     "start": "npm run dev",
-    "dev": "NODE_NO_WARNINGS=1 stmux -w always -n -M -- [ \"vite\" .. \"vitest src\" ]",
+    "dev": "NODE_NO_WARNINGS=1 stmux -w always -n -M -- [ \"vite\" .. \"vitest --watch src\" ]",
+    "test": "npm run lint && CI=1 vitest --run src",
     "build": "npm run lint && vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "npm run lint:eslint && npm run lint:translations",
+    "lint:eslint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:translations": "NODE_NO_WARNINGS=1 node src/hooks/translation/linter.js",
     "preview": "npm run build && vite preview",
     "deploy": "npm version minor -m \"chore: Release version %s\" && npm run build && gh-pages -d dist"
   },
@@ -22,7 +25,9 @@
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
+    "@babel/parser": "^7.23.5",
     "@babel/plugin-syntax-import-assertions": "^7.22.5",
+    "@babel/traverse": "^7.23.5",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.0.0",

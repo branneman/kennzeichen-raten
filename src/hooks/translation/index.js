@@ -10,29 +10,12 @@ export const makeTranslationValue = (
   language,
   setLanguage,
 ) => {
-  return {
-    t: makeTranslateFunction(translations, language),
-    language,
-    setLanguage,
-  }
-}
-
-export function makeTranslateFunction(
-  translations,
-  language,
-) {
-  return (key) => {
-    const result = getObjectPropertyByPathSpecifier(
+  const t = (key) =>
+    getObjectPropertyByPathSpecifier(
       key,
       translations[language],
     )
-    if (result === undefined) {
-      throw new Error(
-        `Missing translation key "${key}" for language "${language}"`,
-      )
-    }
-    return result
-  }
+  return { t, language, setLanguage }
 }
 
 export function getObjectPropertyByPathSpecifier(key, obj) {
