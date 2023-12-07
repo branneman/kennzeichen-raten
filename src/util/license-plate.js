@@ -7,6 +7,15 @@ import { randomString, randomNumber } from './random'
 const ALPHABET_LETTERS = 'ABCDEFGHIJKLMOPQRSTUVWXYZ'
 const ALPHABET_DIGITS = '0123456789'
 
+export const COLORS = {
+  braun: { startYear: 1974, ral: '8004', rgb: '8d4931' },
+  rosa: { startYear: 1975, ral: '3015', rgb: 'd8a0a6' },
+  grün: { startYear: 1976, ral: '6018', rgb: '61993b' },
+  orange: { startYear: 1977, ral: '2000', rgb: 'da6e00' },
+  blau: { startYear: 1978, ral: '5015', rgb: '007cb0' },
+  gelb: { startYear: 1979, ral: '1012', rgb: 'ddaf27' },
+}
+
 // [A-ZÄÖÜ]{1,3} [A-Z]{1,2} [0-9]{2,4}
 export const randomLicensePlate = (prefix) => {
   const lettersLength = randomNumber(1, 2)
@@ -31,4 +40,11 @@ export const randomLicensePlate = (prefix) => {
   const code = letters + ' ' + digits
 
   return { prefix, code }
+}
+
+export const yearToSealColor = (year) => {
+  const colors = Object.entries(COLORS)
+  for (const [color, { startYear }] of colors) {
+    if ((year - startYear) % 6 === 0) return color
+  }
 }

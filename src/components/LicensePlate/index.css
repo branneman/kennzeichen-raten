@@ -42,8 +42,26 @@
 
 .license-plate__seals {
   width: 20px;
-  background-image: url('/kennzeichen-raten/img/seal-of-safety.svg');
+  background-image: url('/kennzeichen-raten/img/seal.svg');
   background-position: 0 0.4em;
   background-size: 20px;
   background-repeat: no-repeat;
+}
+.license-plate__seals.license-plate__seals--braun {
+  background-image: url('/kennzeichen-raten/img/seal-braun.svg');
+}
+.license-plate__seals.license-plate__seals--rosa {
+  background-image: url('/kennzeichen-raten/img/seal-rosa.svg');
+}
+.license-plate__seals.license-plate__seals--grün {
+  background-image: url('/kennzeichen-raten/img/seal-grün.svg');
+}
+.license-plate__seals.license-plate__seals--orange {
+  background-image: url('/kennzeichen-raten/img/seal-orange.svg');
+}
+.license-plate__seals.license-plate__seals--blau {
+  background-image: url('/kennzeichen-raten/img/seal-blau.svg');
+}
+.license-plate__seals.license-plate__seals--gelb {
+  background-image: url('/kennzeichen-raten/img/seal-gelb.svg');
 }
