@@ -20,11 +20,17 @@ export const findMatches = curry((matchers, xs, x) => {
       const r = (acc, { f, n }) => (f(x, y) ? acc + n : acc)
       return { ...y, score: reduce(r, 0, matchers) }
     }),
+    filter((y) => !isDuplicate(x, y)),
     without([x]),
   )
 
   return { ...x, matches: f(xs) }
 })
+
+export const isDuplicate = (a, b) =>
+  a.code !== b.code &&
+  clean(a.namesake) === clean(b.namesake) &&
+  a.district === b.district
 
 export const matchNamesakeOnHighPopulation =
   (threshold) => (_a, b) => {

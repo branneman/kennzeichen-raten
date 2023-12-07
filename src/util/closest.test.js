@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   findMatches,
+  isDuplicate,
   matchNamesakeOnHighPopulation,
   matchNamesakeOnStartingWithCode,
   matchNamesakeOnFirstLetterOfCode,
@@ -94,6 +95,41 @@ describe('findMatches()', () => {
         ],
       })
     })
+  })
+})
+
+describe('isDuplicate()', () => {
+  const xs = [
+    {
+      code: 'AP',
+      namesake: '*A**p*olda',
+      district: 'Weimarer Land',
+    },
+    {
+      code: 'APD',
+      namesake: '*A**p*ol*d*a',
+      district: 'Weimarer Land',
+    },
+    {
+      code: 'WÜ',
+      namesake: '*Wü*rzburg',
+      district: 'Würzburg',
+    },
+    {
+      code: 'WÜM',
+      namesake: '*W*ald*m**ü*nchen',
+      district: 'Waldmünchen',
+    },
+  ]
+
+  it('detects duplicates insensitive to *', () => {
+    expect(isDuplicate(xs[0], xs[1])).toEqual(true)
+    expect(isDuplicate(xs[1], xs[0])).toEqual(true)
+
+    expect(isDuplicate(xs[0], xs[2])).toEqual(false)
+    expect(isDuplicate(xs[0], xs[3])).toEqual(false)
+    expect(isDuplicate(xs[1], xs[2])).toEqual(false)
+    expect(isDuplicate(xs[1], xs[3])).toEqual(false)
   })
 })
 

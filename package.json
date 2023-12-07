@@ -8,7 +8,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "NODE_NO_WARNINGS=1 stmux -w always -n -M -- [ \"vite\" .. \"vitest --watch src\" ]",
-    "test": "npm run lint && CI=1 vitest --run src",
+    "test": "npm run lint && vitest --run src",
     "build": "npm run lint && vite build",
     "lint": "npm run lint:eslint && npm run lint:translations",
     "lint:eslint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
