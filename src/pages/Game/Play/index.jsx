@@ -51,7 +51,9 @@ export default function PlayGame() {
         </p>
         <p>
           {t('pages.Game.Results.difficulty')}:{' '}
-          {difficultyStr}
+          {t(
+            `pages.Game.ChooseDifficulty.difficulty-${difficultyStr}`,
+          )}
         </p>
         <p>
           {t('pages.Game.Results.correct-#')}:{' '}
