@@ -8,7 +8,7 @@
       },
       "Howto": {
         "title": "Deutsches Kfz-Kennzeichen",
-        "description": "Die ersten 1-3 Buchstaben (vor dem grünen Siegel) sind der Landkreis.",
+        "description": "Die ersten 1-3 Buchstaben (vor dem Siegel) sind der Landkreis.",
         "m-for-munchen": "M bedeutet München"
       }
     },
@@ -58,7 +58,7 @@
       },
       "Howto": {
         "title": "German license plates",
-        "description": "The first 1-3 letters (before the green seal) are the district code.",
+        "description": "The first 1-3 letters (before the seal) are the district code.",
         "m-for-munchen": "M stands for München"
       }
     },
