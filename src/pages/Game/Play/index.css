@@ -9,6 +9,14 @@
 .game-play__answerlistitem {
   list-style: none;
 }
+.game-play__answerlist--guess-code {
+  display: flex;
+  gap: 2em;
+}
+.game-play__answerlist--guess-code
+  .game-play__answerlistitem {
+  flex-grow: 1;
+}
 
 .game-play__answer--correct,
 .game-play__answer--incorrect {

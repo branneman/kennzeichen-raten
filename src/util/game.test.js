@@ -105,21 +105,21 @@ describe('difficultyStr2Int()', () => {
   })
 })
 
-describe('generateNewGameState()', () => {
+describe('generateNewGameState(mode=guess-district)', () => {
   it('generates a startedAt date', () => {
-    const r = generateNewGameState(2)
+    const r = generateNewGameState('guess-district', 2)
     expect(r.startedAt instanceof Date).toEqual(true)
   })
 
   it('generates 3 answers for each question', () => {
-    const r = generateNewGameState(2)
+    const r = generateNewGameState('guess-district', 2)
     r.questions.forEach((q) => {
       expect(q.choices.length).toEqual(3)
     })
   })
 
   it('generates 2 different answers', () => {
-    const r = generateNewGameState(2)
+    const r = generateNewGameState('guess-district', 2)
 
     r.questions.forEach((q) => {
       // 0->1 and 1->0
@@ -134,7 +134,7 @@ describe('generateNewGameState()', () => {
   })
 
   it('generates 1 correct answer', () => {
-    const r = generateNewGameState(2)
+    const r = generateNewGameState('guess-district', 2)
 
     r.questions.forEach((q) => {
       const rightAnswer = q.question
@@ -148,18 +148,49 @@ describe('generateNewGameState()', () => {
   })
 
   it('generates 10 questions difficulty=easy', () => {
-    const r = generateNewGameState(1)
+    const r = generateNewGameState('guess-district', 1)
     expect(r.questions.length).toEqual(10)
   })
 
   it('generates 20 questions difficulty=medium', () => {
-    const r = generateNewGameState(2)
+    const r = generateNewGameState('guess-district', 2)
     expect(r.questions.length).toEqual(20)
   })
 
   it('generates 20 questions difficulty=hard', () => {
-    const r = generateNewGameState(3)
+    const r = generateNewGameState('guess-district', 3)
     expect(r.questions.length).toEqual(20)
+  })
+})
+
+describe('generateNewGameState(mode=guess-code)', () => {
+  it('generates only choices with same-length code (code length 1)', () => {
+    const r = generateNewGameState('guess-code', 1)
+    r.questions.forEach((q) => {
+      q.choices.forEach((a) => {
+        expect(a.code.length).toEqual(1)
+      })
+    })
+  })
+
+  it('generates only choices with same-length code (code length 2)', () => {
+    const r = generateNewGameState('guess-code', 2)
+    r.questions.forEach((q) => {
+      q.choices.forEach((a) => {
+        expect(a.code.length).toEqual(2)
+      })
+    })
+  })
+
+  it('generates only choices with same-length code (code length 3)', () => {
+    const r = generateNewGameState('guess-code', 3)
+    r.questions.forEach((q) => {
+      q.choices.forEach((a) => {
+        expect(
+          a.code.length === 2 || a.code.length === 3,
+        ).toEqual(true)
+      })
+    })
   })
 })
 

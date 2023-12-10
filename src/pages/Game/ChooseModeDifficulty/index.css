@@ -1,0 +1,9 @@
+label.choosemodedifficulty {
+  display: block;
+  cursor: pointer;
+  padding: .25em 0;
+}
+label.choosemodedifficulty input[type=radio] {
+  margin-left: 0;
+  margin-right: .5em;
+}

@@ -6,8 +6,8 @@ import App from './components/App'
 import Home from './pages/Home'
 import Debug from './pages/Debug'
 import Database from './pages/Database'
-import GameChooseDifficulty from './pages/Game/ChooseDifficulty'
-import PlayGame from './pages/Game/Play'
+import GameChooseModeDifficulty from './pages/Game/ChooseModeDifficulty'
+import Play from './pages/Game/Play'
 
 // Preload background image
 const img = new Image()
@@ -27,11 +27,11 @@ function runReactApp() {
             <Route path="database" element={<Database />} />
             <Route
               path="play"
-              element={<GameChooseDifficulty />}
+              element={<GameChooseModeDifficulty />}
             />
             <Route
-              path="play/:difficulty"
-              element={<PlayGame />}
+              path="play/:mode/:difficulty"
+              element={<Play />}
             />
           </Route>
         </Routes>

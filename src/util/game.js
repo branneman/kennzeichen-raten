@@ -1,6 +1,5 @@
 import {
   append,
-  clone,
   filter,
   map,
   pipe,
@@ -64,13 +63,15 @@ export const difficultyStr2Int = (str) => {
   return i
 }
 
-export const generateNewGameState = (difficulty) => {
+export const generateNewGameState = (mode, difficulty) => {
   const amount = {
     1: 10,
     2: 20,
     3: 20,
   }[difficulty]
-  const data = getDataByDifficulty(difficulty, clone(DATA))
+  const data = getDataByDifficulty(difficulty, DATA)
+  const choicesData =
+    mode === 'guess-district' ? DATA : data
   const questions = slice(0, amount, shuffle(data))
 
   return {
@@ -79,7 +80,7 @@ export const generateNewGameState = (difficulty) => {
 
     // { question, choices }[]
     questions: map(
-      rawQuestion2gameQuestion(difficulty),
+      rawQuestion2gameQuestion(choicesData, difficulty),
       questions,
     ),
 
@@ -89,9 +90,9 @@ export const generateNewGameState = (difficulty) => {
 }
 
 const rawQuestion2gameQuestion =
-  (difficulty) => (question) => {
+  (data, difficulty) => (question) => {
     const getChoices = pipe(
-      findMatches(MATCHERS[String(difficulty)], DATA),
+      findMatches(MATCHERS[String(difficulty)], data),
       prop('matches'),
       sort((a, z) => z.score - a.score),
       slice(0, 2),

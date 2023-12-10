@@ -18,18 +18,23 @@
         "explore-the-database": "Datenbank erkunden"
       },
       "Game": {
-        "ChooseDifficulty": {
+        "ChooseModeDifficulty": {
           "title": "Spielen",
-          "description": "Schwierigkeitsgrad wählen",
+          "mode-description": "Modus wählen",
+          "mode-guess-district": "Errate den Bezirk",
+          "mode-guess-code": "Errate den Bezirkscode",
+          "difficulty-description": "Schwierigkeitsgrad wählen",
           "difficulty-easy": "Einfach",
           "difficulty-medium": "Mittel",
-          "difficulty-hard": "Schwer"
+          "difficulty-hard": "Schwer",
+          "play": "Spielen"
         },
         "Play": {
           "question-#": "Frage",
           "question-#-from": "von",
           "license-plate": "Dieses Kennzeichen",
-          "question": "Wo kommt es her?",
+          "question-district": "Wo kommt es her?",
+          "question-code": "Which district code?",
           "correct": "Richtig",
           "incorrect": "Falsch"
         },
@@ -68,18 +73,23 @@
         "explore-the-database": "Explore the database"
       },
       "Game": {
-        "ChooseDifficulty": {
+        "ChooseModeDifficulty": {
           "title": "Play",
-          "description": "Choose difficulty",
+          "mode-description": "Choose mode",
+          "mode-guess-district": "Guess the district",
+          "mode-guess-code": "Guess the district code",
+          "difficulty-description": "Choose difficulty",
           "difficulty-easy": "Easy",
           "difficulty-medium": "Medium",
-          "difficulty-hard": "Hard"
+          "difficulty-hard": "Hard",
+          "play": "Play"
         },
         "Play": {
           "question-#": "Question",
           "question-#-from": "from",
           "license-plate": "This license plate",
-          "question": "Where is it from?",
+          "question-district": "Where is it from?",
+          "question-code": "Which district code?",
           "correct": "Correct",
           "incorrect": "Incorrect"
         },

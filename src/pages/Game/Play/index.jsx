@@ -20,17 +20,18 @@ import {
 } from '../../../util/game'
 import './index.css'
 
-export default function PlayGame() {
+export default function Play() {
   const { t } = useTranslation()
 
   const [gameState, setGameState] = useState(null)
   const [showingQuestion, setShowingQuestion] =
     useState(true)
-  const { difficulty: difficultyStr } = useParams()
+  const { mode, difficulty: difficultyStr } = useParams()
 
   if (!hasStarted(gameState)) {
     setGameState(
       generateNewGameState(
+        mode,
         difficultyStr2Int(difficultyStr),
       ),
     )
@@ -80,7 +81,7 @@ export default function PlayGame() {
   const addAnswerToGameState = (q, a) => {
     setShowingQuestion(false)
     setGameState(answerQuestion(gameState, q, a))
-    setTimeout(() => setShowingQuestion(true), 2000)
+    setTimeout(() => setShowingQuestion(true), 1500)
   }
 
   let questionNumber = 1 + gameState.answers.length
@@ -110,15 +111,34 @@ export default function PlayGame() {
         {gameState.questions.length}
       </p>
 
-      <h2>{t('pages.Game.Play.license-plate')}:</h2>
-      <LicensePlate
-        prefix={question.code}
-        code={question.plate}
-      />
+      {mode === 'guess-district' ? (
+        <>
+          <h2>{t('pages.Game.Play.license-plate')}:</h2>
+          <LicensePlate
+            prefix={question.code}
+            code={question.plate}
+          />
+          <h2>{t('pages.Game.Play.question-district')}</h2>
+        </>
+      ) : (
+        <>
+          <p>District:</p>
+          <h2>
+            {formatNamesake(question.namesake)}
+            {!namesakeEqualsDistrict(
+              question.namesake,
+              question.district,
+            ) && ` (${question.district})`}
+            , {question.state}
+          </h2>
+          <h3>{t('pages.Game.Play.question-code')}</h3>
+        </>
+      )}
 
-      <h2>{t('pages.Game.Play.question')}</h2>
       {showingQuestion ? (
-        <ol className="game-play__answerlist">
+        <ol
+          className={`game-play__answerlist game-play__answerlist--${mode}`}
+        >
           {choices.map((choice, idx) => (
             <li
               key={`${choice.code} ${idx}`}
@@ -131,12 +151,18 @@ export default function PlayGame() {
                   addAnswerToGameState(question, choice)
                 }
               >
-                {formatNamesake(choice.namesake)}
-                {!namesakeEqualsDistrict(
-                  choice.namesake,
-                  choice.district,
-                ) && ` (${choice.district})`}
-                , {choice.state}
+                {mode === 'guess-district' ? (
+                  <>
+                    {formatNamesake(choice.namesake)}
+                    {!namesakeEqualsDistrict(
+                      choice.namesake,
+                      choice.district,
+                    ) && ` (${choice.district})`}
+                    , {choice.state}
+                  </>
+                ) : (
+                  choice.code
+                )}
               </Button>
             </li>
           ))}
