@@ -1,6 +1,7 @@
 {
   "name": "Kennzeichen-Raten",
-  "short_name": "Kennzeichen-Raten",
+  "short_name": "KZ Raten",
+  "start_url": "/kennzeichen-raten/",
   "icons": [
     {
       "src": "/kennzeichen-raten/android-chrome-192x192.png",
@@ -14,6 +15,6 @@
     }
   ],
   "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "background_color": "#1a2328",
   "display": "standalone"
 }

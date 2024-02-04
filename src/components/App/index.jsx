@@ -5,12 +5,12 @@ import {
   Outlet,
 } from 'react-router-dom'
 
-import Header from '../Header'
 import { makeTranslationValue } from '../../hooks/translation'
 import { TranslationContext } from '../../context/translation'
 import translations from '../../data/translations.json'
 import { useKeySequenceDetector } from '../../hooks/dom'
 import './index.css'
+import Header from '../Header'
 
 export default function App() {
   const [language, setLanguage] = useState('de')
