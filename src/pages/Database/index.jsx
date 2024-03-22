@@ -34,10 +34,17 @@ export default function Database() {
         />
       </div>
       <table className="database__table">
+        <thead className="visually-hidden">
+          <tr>
+            <th scope="col">{t('pages.Database.column-district-code')}</th>
+            <th scope="col">{t('pages.Database.column-namesake')}</th>
+            <th scope="col">{t('pages.Database.column-state')}</th>
+          </tr>
+        </thead>
         <tbody>
           {results.map((ac) => (
             <tr key={`ac-${ac.code}`}>
-              <td className="database__code">{ac.code}</td>
+              <th scope="row" className="database__code">{ac.code}</th>
               <td>
                 <Namesake
                   namesake={splitByBoldStar(ac.namesake)}
@@ -46,9 +53,9 @@ export default function Database() {
                   ac.namesake,
                   ac.district,
                 ) && (
-                  <div className="database__district">
-                    {`(${ac.district})`}
-                  </div>
+                  <small className="database__district">
+                    {ac.district}
+                  </small>
                 )}
               </td>
               <td>{ac.state}</td>

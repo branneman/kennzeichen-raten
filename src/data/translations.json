@@ -51,7 +51,10 @@
       },
       "Database": {
         "title": "Datenbank",
-        "search-label": "Suchen"
+        "search-label": "Suchen",
+        "column-district-code": "Bezirkscode",
+        "column-namesake": "Namensvetter",
+        "column-state": "Land"
       }
     }
   },
@@ -106,7 +109,10 @@
       },
       "Database": {
         "title": "Database",
-        "search-label": "Search"
+        "search-label": "Search",
+        "column-district-code": "District code",
+        "column-namesake": "Namesake",
+        "column-state": "State"
       }
     }
   }

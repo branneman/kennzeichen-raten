@@ -4,23 +4,17 @@ export const splitByBoldStar = (s) => {
   let i = 0
   while (i < s.length) {
     if (s[i] === '*') {
-      // strong
-      if (xs.length && xs[xs.length - 1].tag === 'strong') {
-        // continue existing
+      if (xs.length && xs[xs.length - 1].tag === 'mark') {
         xs[xs.length - 1].str += s[i + 1]
       } else {
-        // create new
-        xs.push({ str: s[i + 1], tag: 'strong' })
+        xs.push({ str: s[i + 1], tag: 'mark' })
       }
-      i += 3
+      i += 3 // Correctly skip over '*' and the character after it
     } else {
-      // span
-      if (xs.length && xs[xs.length - 1].tag === 'span') {
-        // continue existing
+      if (xs.length && xs[xs.length - 1].tag !== 'mark') {
         xs[xs.length - 1].str += s[i]
       } else {
-        // create new
-        xs.push({ str: s[i], tag: 'span' })
+        xs.push({ str: s[i], tag: '' }) // Omitting 'span' but keeping text grouping
       }
       i += 1
     }
