@@ -19,6 +19,9 @@ export default function App() {
     language,
     setLanguage,
   )
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   const navigate = useNavigate()
   useKeySequenceDetector('debug', () => navigate('/debug'))

@@ -38,6 +38,10 @@
   padding: 0.2em 0 0 2em;
   cursor: pointer;
   font-size: smaller;
+  background-color: transparent;
   background-image: url('/kennzeichen-raten/img/language.svg');
   background-repeat: no-repeat;
+  border: none;
+  color: inherit;
+  appearance: none;
 }
