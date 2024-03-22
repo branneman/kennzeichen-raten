@@ -4,41 +4,41 @@ import { splitByBoldStar } from './string'
 describe('splitByBoldStar()', () => {
   it('returns array of 1 without matches', () => {
     expect(splitByBoldStar('abc')).toEqual([
-      { str: 'abc', tag: 'span' },
+      { str: 'abc', tag: '' },
     ])
   })
 
   it('returns 1 match', () => {
     expect(splitByBoldStar('a*b*c')).toEqual([
-      { str: 'a', tag: 'span' },
-      { str: 'b', tag: 'strong' },
-      { str: 'c', tag: 'span' },
+      { str: 'a', tag: '' },
+      { str: 'b', tag: 'mark' },
+      { str: 'c', tag: '' },
     ])
   })
 
   it('returns multiple matches', () => {
     expect(splitByBoldStar('*A*schaffen*b*urg')).toEqual([
-      { str: 'A', tag: 'strong' },
-      { str: 'schaffen', tag: 'span' },
-      { str: 'b', tag: 'strong' },
-      { str: 'urg', tag: 'span' },
+      { str: 'A', tag: 'mark' },
+      { str: 'schaffen', tag: '' },
+      { str: 'b', tag: 'mark' },
+      { str: 'urg', tag: '' },
     ])
 
     expect(splitByBoldStar('Bad *B*er*l*e*b*urg')).toEqual([
-      { str: 'Bad ', tag: 'span' },
-      { str: 'B', tag: 'strong' },
-      { str: 'er', tag: 'span' },
-      { str: 'l', tag: 'strong' },
-      { str: 'e', tag: 'span' },
-      { str: 'b', tag: 'strong' },
-      { str: 'urg', tag: 'span' },
+      { str: 'Bad ', tag: '' },
+      { str: 'B', tag: 'mark' },
+      { str: 'er', tag: '' },
+      { str: 'l', tag: 'mark' },
+      { str: 'e', tag: '' },
+      { str: 'b', tag: 'mark' },
+      { str: 'urg', tag: '' },
     ])
   })
 
   it('combines characters', () => {
     expect(splitByBoldStar('*W**ü*rzburg')).toEqual([
-      { str: 'Wü', tag: 'strong' },
-      { str: 'rzburg', tag: 'span' },
+      { str: 'Wü', tag: 'mark' },
+      { str: 'rzburg', tag: '' },
     ])
   })
 })
