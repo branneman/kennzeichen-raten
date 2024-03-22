@@ -12,15 +12,15 @@ export default function Header() {
       <h1>
         <Link to={`/`}>Kennzeichen-Raten</Link>
       </h1>
-      <div className="header__nav">
+      <nav className="header__nav">
         <Link to={`/`}>{t('components.Header.home')}</Link>
-        <p
+        <button
           className="header__switchlanguage"
           onClick={() => setLanguage(otherLanguage)}
         >
           {t('components.Header.switch-language')}
-        </p>
-      </div>
+        </button>
+      </nav>
     </header>
   )
 }

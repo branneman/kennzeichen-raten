@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Howto />
 
-      <ol className="mainmenu">
+      <nav className="mainmenu">
         <Link to="/play">
           <Button>{t('pages.Home.play-the-game')}</Button>
         </Link>
@@ -20,7 +20,7 @@ export default function Home() {
             {t('pages.Home.explore-the-database')}
           </Button>
         </Link>
-      </ol>
+      </nav>
     </>
   )
 }
